@@ -17,6 +17,7 @@ exports.register = async (req, res) => {
         const result = await account.register(userDetails);
         console.log(result);
         res.send(result);
+
     } catch (err) {
         console.error(err);
         res.status(500).send(err);

@@ -3,8 +3,6 @@ const sql = DBConnections.mySqlConnection;
 const mongo = DBConnections.mongo;
 
 
-
-
 const account = function (account){
     this.name = account.name;
     this.email = account.email;
