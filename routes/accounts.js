@@ -16,4 +16,8 @@ var itemRouter = express.Router({strict: true});
 
 router.post("/register",account.register);
 
+router.get("/userDetails",account.userDetails);
+
+router.get("/login",account.login);
+
 module.exports = router;

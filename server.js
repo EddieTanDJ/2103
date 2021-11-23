@@ -20,11 +20,6 @@ app.use('/accounts', accounts);
 var recipes = require('./routes/recipes.js');
 app.use('/recipes', recipes);
 
-//Setting up user detail route
-var userDetails = require('./routes/userDetails');
-app.use('/userDetails', userDetails);
-
-
 
 app.get('/', function (req, res) {
     res.send("Test")
