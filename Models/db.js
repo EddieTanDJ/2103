@@ -13,23 +13,17 @@ const mySqlConnection = mysql.createConnection({
 });
 
 
-// const uri = "mongodb+srv://Ivan:Password@123@ict2103.zjqsz.mongodb.net/ICT2103?retryWrites=true&w=majority";
-// const mongoDb = MongoDb.connect(uri,function(err,database){
-//   if(err){
-//     console.log(err)
-//   }
-// })
+const mongoDb = new MongoDb(dbConfig.URL);
+mongoDb.connect().then(value => {
+  console.log("Connected to MongoDB")
+}).catch(err =>{
+  console.log(err)
+})
 
-const uri = "mongodb+srv://Ivan:Password@123@ict2103.zjqsz.mongodb.net/ICT2103?retryWrites=true&w=majority";
-const mongoDb = new MongoDb(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-const mongoDBConnection = mongoDb.connect(err => {
-  mongoDb.close();
-});
 
- 
 
 
 module.exports = {
   mySqlConnection: mySqlConnection,
-  mongo: mongoDBConnection
+  mongoConnection: mongoDb.db('EzRecipe')
 };

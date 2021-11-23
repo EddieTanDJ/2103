@@ -20,10 +20,10 @@ app.use('/accounts', accounts);
 var recipes = require('./routes/recipes.js');
 app.use('/recipes', recipes);
 
+//Setting up homepage routes
+var homepage = require('./routes/homepage');
+app.use("/",homepage);
 
-app.get('/', function (req, res) {
-    res.send("Test")
-  });
 
 app.listen(port,host, () => {
   // print a message when the server starts listening

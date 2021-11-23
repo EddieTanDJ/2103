@@ -14,9 +14,11 @@ exports.register = async (req, res) => {
         const password = await bcrypt.hashSync(userDetails.password, salt);
         userDetails.password = password;
 
-        const result = await account.register(userDetails);
-        console.log(result);
-        res.send(result);
+        const resultMySQL = await account.registerMySQL(userDetails);
+        const resultNoSQL = await account.registerNoSQL(userDetails);
+        console.log(resultMySQL);
+        console.log(resultNoSQL);
+        res.send(resultMySQL);
 
     } catch (err) {
         console.error(err);

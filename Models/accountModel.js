@@ -1,6 +1,6 @@
 const DBConnections=require('./db');
 const sql = DBConnections.mySqlConnection;
-const mongo = DBConnections.mongo;
+const mongo = DBConnections.mongoConnection;
 
 
 const account = function (account){
@@ -9,7 +9,7 @@ const account = function (account){
     this.password = account.password;
 };
 
-account.register = (account) => {
+account.registerMySQL = (account) => {
     return new Promise((resolve, reject) => {
     
         sql.query('INSERT INTO users (fname,lname,email,password) VALUES ( ?, ?, ?,?)', [account.fname,account.lname,account.email,account.password], (err,result) => {
@@ -19,6 +19,29 @@ account.register = (account) => {
                 resolve(result);
             }
         })
+
+    })
+}
+
+account.registerNoSQL = (account) => {
+    return new Promise((resolve, reject) => {
+        
+        var noSQLObj = {
+            fname: account.fname,
+            lname: account.lname,
+            email: account.email,
+            password: account.password};
+
+        mongo.collection("users").insertOne(
+            noSQLObj,(err,result) =>{
+            if (err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        });
+
     })
 }
 
