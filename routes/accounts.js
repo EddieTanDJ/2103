@@ -12,18 +12,12 @@ router.get("/register",(req,res)=>{
 
 router.post("/register",account.register);
 
-router.get("/userDetails",account.getUserInfo);
-
-router.post("/userDetails",account.setUserInfo);
+router.get("/userDetails",account.userDetails);
 
 router.get("/login",account.login);
 
 router.get("/",(req,res)=>{
     res.render('login')
-});
-
-router.get("/userDetails",(req,res)=>{
-    res.render('user-detail')
 });
 
 module.exports = router;
