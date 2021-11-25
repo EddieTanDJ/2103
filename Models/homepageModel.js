@@ -1,6 +1,6 @@
 const DBConnections=require('./db');
 const sql = DBConnections.mySqlConnection;
-const mongo = DBConnections.mongo;
+const mongo = DBConnections.mongoConnection;
 
 
 const searchQuery = function (searchQuery){
@@ -9,13 +9,65 @@ const searchQuery = function (searchQuery){
 
 searchQuery.search = (searchQuery) => {
     return new Promise((resolve, reject) => {
-    
-        sql.query('SELECT * from EzRecipe where categories = ?', [account.fname,account.lname,account.email,account.password], (err,result) => {
+        console.log("Hit Model");
+        console.log(searchQuery.search);
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
+            recipeName: {$regex: '.*' + searchQuery.search + '.*',$options: 'i'}
+        }).toArray((err,result)=>{
             if(err){
                 reject(err);
-            }else{
+            }
+            else{
+                resolve(result);
+            }
+        });
+    })
+}
+
+searchQuery.headerCtg = () =>{
+    return new Promise((resolve,reject) =>{
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
+            recipeID:{ $in: [1415,2710,412]}
+        }).toArray((err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
                 resolve(result);
             }
         })
     })
 }
+
+searchQuery.popularRecipe = () => {
+    return new Promise((resolve,reject) =>{
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find().sort({
+            aggregatedRating : -1,
+            reviewCount: -1
+        }).limit(4).toArray((err,result) =>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+searchQuery.featuredRecipe = () => {
+    return new Promise((resolve, reject) => {
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
+            recipeID : {$in: [167,196,310,458]}
+        }).limit(4).toArray((err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+module.exports = searchQuery;

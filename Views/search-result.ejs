@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include('meta.ejs') %>
+
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+
+        <!-- Subheader Start -->
+        <div class="metro_subheader dark-overlay dark-overlay-2"
+            style="background-image: url(../assets/img/banners/banner-1.jpg)">
+            <div class="container">
+                <div class="metro_subheader-inner">
+                    <h1>
+                        Searched Results
+                    </h1>
+                    <nav aria-label="breadcrumb">
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Subheader End -->
+
+        <!-- Post Content Start -->
+        <div id=body_content class="section metro_post-single">
+            <div class="container">
+
+            </div>
+        </div>
+        <!-- Product Content End -->
+
+        <%- include('footer.ejs') %>
+
+            <!-- Vendor Scripts -->
+            <script src="../assets/js/plugins/jquery-3.4.1.min.js"></script>
+            <script src="../assets/js/plugins/popper.min.js"></script>
+            <script src="../assets/js/plugins/waypoint.js"></script>
+            <script src="../assets/js/plugins/bootstrap.min.js"></script>
+            <script src="../assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="../assets/js/plugins/jquery.slimScroll.min.js"></script>
+            <script src="../assets/js/plugins/imagesloaded.min.js"></script>
+            <script src="../assets/js/plugins/jquery.steps.min.js"></script>
+            <script src="../assets/js/plugins/jquery.countdown.min.js"></script>
+            <script src="../assets/js/plugins/isotope.pkgd.min.js"></script>
+            <script src="../assets/js/plugins/slick.min.js"></script>
+            <script src="../assets/js/plugins/ion.rangeSlider.min.js"></script>
+            <script src="../assets/js/plugins/jquery.zoom.min.js"></script>
+
+
+            <!-- Organista Scripts -->
+            <script src="../assets/js/main.js"></script>
+
+
+            <script>
+
+                function createCard(cardData) {
+                    var cardTemplate = [
+                        '<div class="card">',
+                        '<p>My name is: ',
+                        cardData.recipeName || 'No name provided',
+                        '</p>',
+                        '<p>My job is: ',
+                        cardData.recipeID || 'No ID provided',
+                        '</p></div>'
+                    ];
+
+                    // a jQuery node
+                    return $(cardTemplate.join(''));
+                }
+
+                window.onload = function () {
+                    var urlParams = new URLSearchParams(window.location.search);
+                    console.log(urlParams.has('search')); // true
+                    if (urlParams.has('search')) {
+                        var query = urlParams.get('search')
+
+                        console.log(query)
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/index/search",
+                            data: {
+                                search: query
+                            },
+                            success: function (result) {
+
+                                //populate page using jqury
+                                var cards = $();
+                                // Store all the card nodes
+
+                                result.forEach(function (item, i) {
+                                    cards = cards.add(createCard(item));
+                                    console.log("HIT")
+                                });
+
+                                // Add them to the page... for instance the <body>
+                                $(function () {
+                                    $('#body_content').append(cards);
+                                });
+                            }
+                        });
+                    }
+                };
+
+
+
+            </script>
+</body>
+
+</html>

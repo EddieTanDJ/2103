@@ -15,7 +15,7 @@ const mySqlConnection = mysql.createConnection({
 
 const mongoDb = new MongoDb(dbConfig.URL);
 mongoDb.connect().then(value => {
-  console.log("Connected to MongoDB")
+  console.log("Connected1 to MongoDB")
 }).catch(err =>{
   console.log(err)
 })

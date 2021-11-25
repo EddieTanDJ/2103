@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include('meta.ejs') %>
+
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+        <!-- Login Detail Start -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="mb-0"></h5>
+                        <hr>
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                <h6 class="mb-0">Login</h6>
+                            </div>
+                            <div class="card-body">
+                                <form class="login-form" method = "get" action="/accounts/login">
+                                    <div class="col-6">
+                                        <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" value="">
+                                    </div>
+                                    <br>
+                                    <div class="col-6">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" value="" style="max-width: 100%;">
+                                    </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="text-start d-inline-block">
+                            <p>New here? <a href="/accounts/register">Click this to Register!</a></p>
+                        </div>
+
+                        <div class="text-start d-inline-block">
+                            <button type="submit" class="btn btn-primary px-4 button-login">Login</button>
+                        </div>
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Login Detail End -->
+
+        <%- include('footer.ejs') %>
+
+            <!-- Vendor Scripts -->
+            <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
+            <script src="assets/js/plugins/popper.min.js"></script>
+            <script src="assets/js/plugins/waypoint.js"></script>
+            <script src="assets/js/plugins/bootstrap.min.js"></script>
+            <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="assets/js/plugins/jquery.slimScroll.min.js"></script>
+            <script src="assets/js/plugins/imagesloaded.min.js"></script>
+            <script src="assets/js/plugins/jquery.steps.min.js"></script>
+            <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+            <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
+            <script src="assets/js/plugins/slick.min.js"></script>
+            <script src="assets/js/plugins/ion.rangeSlider.min.js"></script>
+            <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+
+
+            <!-- Organista Scripts -->
+            <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

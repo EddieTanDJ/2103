@@ -54,17 +54,6 @@ account.login = (account) => {
                 resolve(result);
             }
         })
-        async function findUsers(mongo,resultsLimit){
-            const cursor = mongo
-                .db('ICT2103')
-                .collection('users')
-                .find()
-                .limit(resultsLimit);
-                const results = await cursor.toArray();
-                console.log(results);
-        }
-
-        
     })
 }
 

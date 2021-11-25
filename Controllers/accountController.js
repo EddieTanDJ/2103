@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
                         email: result[0].email
                     }, token
             }
-            res.send(payload)
+            res.render("login",payload)
         }
         else {
             res.status(401).send("Unauthorized")

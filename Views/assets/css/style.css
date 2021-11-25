@@ -5381,3 +5381,15 @@ td.remove{
   letter-spacing: 0.1px;
   font-size: 15px;
 }
+
+.button-login{
+  margin-left: 620px;
+}
+.button-register{
+  margin-left: 850px;
+
+}
+
+.login-form{
+  width: 200%;
+}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include('meta.ejs') %>
+
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+
+        <!-- Subheader Start -->
+        <div class="metro_subheader dark-overlay dark-overlay-2"
+            style="background-image: url(assets/img/banners/banner-1.jpg)">
+            <div class="container">
+                <div class="metro_subheader-inner">
+                    <h1>Search By Ingredient</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Search By Ingredient</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- Subheader End -->
+
+        <!-- Account Detail Start -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="mb-0">Search By Ingredient</h5>
+                        <hr>
+                        <div class="card shadow-none border">
+                            <div class="card-body">
+                                <form class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label" for="ingredients">Select Number of Ingredient:</label>
+                                        <select class="form-control2" name="ingredients" id="ingredients"
+                                            onchange="generate()">
+                                            <option value="1">1 Ingredient</option>
+                                            <option value="2">2 ingredients</option>
+                                            <option value="3">3 ingredients</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 py-3">
+                                        <label id="lbl1" class="form-label">Ingredient 1</label>
+                                        <input id="int1" type="text" class="form-control" name="ingre3"
+                                            placeholder="Ingredient 1">
+                                    </div>
+
+                                    <div class="col-6 py-3">
+                                        <label id="lbl2" class="form-label" hidden>Ingredient 2</label>
+                                        <input id="int2" type="text" class="form-control" name="ingre2"
+                                            placeholder="Ingredient 2" hidden>
+                                    </div>
+                                    <div class="col-6">
+                                        <label id="lbl3" class="form-label" hidden>Ingredient 3</label>
+                                        <input id="int3" type="text" class="form-control" name="ingre3"
+                                            placeholder="Ingredient 3" hidden>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="text-start d-inline-block" style="float: right;">
+                            <button type="button" class="btn btn-info px-4">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Account Detail End -->
+
+        <%- include('footer.ejs') %>
+            <!-- Footer End -->
+
+            <!-- Vendor Scripts -->
+            <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
+            <script src="assets/js/plugins/popper.min.js"></script>
+            <script src="assets/js/plugins/waypoint.js"></script>
+            <script src="assets/js/plugins/bootstrap.min.js"></script>
+            <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="assets/js/plugins/jquery.slimScroll.min.js"></script>
+            <script src="assets/js/plugins/imagesloaded.min.js"></script>
+            <script src="assets/js/plugins/jquery.steps.min.js"></script>
+            <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+            <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
+            <script src="assets/js/plugins/slick.min.js"></script>
+            <script src="assets/js/plugins/ion.rangeSlider.min.js"></script>
+            <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+
+
+            <!-- Organista Scripts -->
+            <script src="assets/js/main.js"></script>
+
+</body>
+
+<script>
+    function generate() {
+
+        var a = parseInt(document.getElementById("ingredients").value);
+
+        switch (a) {
+            case 1:
+                document.getElementById("lbl2").hidden = true;
+                document.getElementById("int2").hidden = true;
+                document.getElementById("lbl3").hidden = true;
+                document.getElementById("int3").hidden = true;
+                break;
+            case 2:
+                document.getElementById("lbl2").hidden = false;
+                document.getElementById("int2").hidden = false;
+                document.getElementById("lbl3").hidden = true;
+                document.getElementById("int3").hidden = true;
+                break;
+            case 3:
+                document.getElementById("lbl2").hidden = false;
+                document.getElementById("int2").hidden = false;
+                document.getElementById("lbl3").hidden = false;
+                document.getElementById("int3").hidden = false;
+                break;
+        }
+    }
+</script>
+
+</html>
