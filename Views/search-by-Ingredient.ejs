@@ -37,7 +37,7 @@
                         <hr>
                         <div class="card shadow-none border">
                             <div class="card-body">
-                                <form class="row g-3">
+                                <form id="ingredientForm" class="row g-3">
                                     <div class="col-12">
                                         <label class="form-label" for="ingredients">Select Number of Ingredient:</label>
                                         <select class="form-control2" name="ingredients" id="ingredients"
@@ -63,12 +63,13 @@
                                         <input id="int3" type="text" class="form-control" name="ingre3"
                                             placeholder="Ingredient 3" hidden>
                                     </div>
-                                </form>
+
                             </div>
                         </div>
                         <div class="text-start d-inline-block" style="float: right;">
-                            <button type="button" class="btn btn-info px-4">Search</button>
+                            <button type="submit" class="btn btn-info px-4">Search</button>
                         </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -126,6 +127,13 @@
                 break;
         }
     }
+    ingredientForm.onsubmit = async (e) => {
+        e.preventDefault();
+        window.location.replace("/searchByIngredients/search-result?int1="+$("#int1").val()+"&int2="+$("#int2").val()+"&int3="+$("#int3").val()+"&noOfInt="+
+        $("#ingredients").val())
+        
+    }
+
 </script>
 
 </html>

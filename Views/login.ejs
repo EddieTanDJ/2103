@@ -22,15 +22,16 @@
                                 <h6 class="mb-0">Login</h6>
                             </div>
                             <div class="card-body">
-                                <form class="login-form" method = "get" action="/accounts/login">
+                                <form id="loginform" class="login-form" >
                                     <div class="col-6">
                                         <label class="form-label">Email</label>
-                                        <input type="text" class="form-control" value="">
+                                        <input id="email" type="text" class="form-control" value="">
                                     </div>
                                     <br>
                                     <div class="col-6">
                                         <label class="form-label">Password</label>
-                                        <input type="password" class="form-control" value="" style="max-width: 100%;">
+                                        <input id="password" type="password" class="form-control" value=""
+                                            style="max-width: 100%;">
                                     </div>
 
 
@@ -74,6 +75,31 @@
 
             <!-- Organista Scripts -->
             <script src="assets/js/main.js"></script>
+
+            <script>
+
+                loginform.onsubmit = async (e) => {
+                    console.log($("#email").val())
+                    e.preventDefault();
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/accounts/login",
+                        data: {
+                            email: $("#email").val(),
+                            password: $("#password").val()
+                        },
+                        error: function (xhr, status, err) {
+                            var err = eval("(" + xhr.responseText + ")");
+                            alert(err.Message);
+                        },
+                        success: function (result) {
+
+                            window.location.replace("/index")
+                        }
+                    });
+                }
+            </script>
 
 </body>
 

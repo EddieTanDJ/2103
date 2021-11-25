@@ -12,7 +12,7 @@ const account = function (account){
 account.registerMySQL = (account) => {
     return new Promise((resolve, reject) => {
     
-        sql.query('INSERT INTO users (fname,lname,email,password) VALUES ( ?, ?, ?,?)', [account.fname,account.lname,account.email,account.password], (err,result) => {
+        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password], (err,result) => {
             if(err){
                 reject(err);
             }else{
@@ -27,6 +27,7 @@ account.registerNoSQL = (account) => {
     return new Promise((resolve, reject) => {
         
         var noSQLObj = {
+            username: account.username,
             fname: account.fname,
             lname: account.lname,
             email: account.email,

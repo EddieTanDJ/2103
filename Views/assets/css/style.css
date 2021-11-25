@@ -5393,3 +5393,35 @@ td.remove{
 .login-form{
   width: 200%;
 }
+
+.recipe-list{
+  border-radius: 10px;
+}
+.recipe-col-img{
+  margin-right: -580px;
+}
+.recipe-col-img img{
+  width: 200px;height: 150px;border-radius: 10px;
+}
+.recipe-col-detail{
+  margin-top: 10px;
+}
+.recipe-col-detail p{
+  margin-bottom: 0px;
+}
+#recipeName{
+  font-size: 25px;
+  font-weight: bold;
+}
+#recipeAuthor{
+  font-size: 10px;
+}
+#recipeRating{
+  font-size: 15px;
+}
+#recipeDescription{
+  width: 750px;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}

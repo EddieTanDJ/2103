@@ -14,7 +14,7 @@ router.post("/register",account.register);
 
 router.get("/userDetails",account.userDetails);
 
-router.get("/login",account.login);
+router.post("/login",account.login);
 
 router.get("/",(req,res)=>{
     res.render('login')

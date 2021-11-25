@@ -22,7 +22,7 @@ exports.register = async (req, res) => {
 
     } catch (err) {
         console.error(err);
-        res.status(500).send(err);
+        res.status(401).send(err);
 
     }
 
@@ -32,7 +32,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
 
     const userDetails = req.body
-    console.log(req.body)
+    console.log(req.body.email)
 
     const result = await account.login(userDetails);
 
@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
                         email: result[0].email
                     }, token
             }
-            res.render("login",payload)
+            res.send(payload)
         }
         else {
             res.status(401).send("Unauthorized")
