@@ -38,5 +38,4 @@ app.use("/searchByIngredients",searchByIngredients);
 app.listen(port,host, () => {
   // print a message when the server starts listening
   console.log("server starting on " + host + ":" + port);
-  
 });
