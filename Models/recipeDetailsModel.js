@@ -112,27 +112,57 @@ recipe.comment_insert = (recipe) => {
     })
 }
 
-//  SQLLL
 recipe.comment_aggregate = (recipe) => {
     return new Promise((resolve, reject) => {
 
         // update aggrRating, numOfComments in Recipe Table
-        mongo.collection("review").aggregate([{
-            $group: {
-                _id: "$reviewID",
-                count: { $sum: 1 },
-                aggregatedRating: {$avg: { $sum: "$rating" }}
-
-        }}]).toArray((err, result) =>{
+        mongo.collection("Recipe_Review").updateOne(
+        [
+            { $match: { recipeID:recipe.recipeID } },
+            { $group: {
+                _id: null,
+                aggregatedRating: {
+                    $divide: [{
+                        $sum: {
+                            "$add": [ {
+                                $multiply: [ "$aggregatedRating", "$reviewCount" ]}, recipe.rating
+                            ]
+                        }}, { $inc: {"$reviewCount": 1} }
+                    ]
+                }, // ((rating x count) + currRating)/(count+1)
+                reviewCount: { $inc: {"$reviewCount": 1} },
+            }}
+        ]).then((err,result) =>{
             if (err){
                 reject(err);
             }
             else{
-                resolve(result);
+                console.log(result);
             }
         });
     })
 }
+// recipe.comment_aggregate = (recipe) => {
+//     return new Promise((resolve, reject) => {
+
+//         // update aggrRating, numOfComments in Recipe Table
+//         mongo.collection("review").aggregate([{ $match: { recipeID:recipe.recipeID } },
+//         {   $group: {
+//                 _id: "$recipeID",
+//                 count: { $sum: 1 },
+//                 aggregatedRating: {$avg: { $sum: "$rating" }}
+
+//         }}]).toArray((err, result) =>{
+//             if (err){
+//                 reject(err);
+//             }
+//             else{
+//                 resolve(result);
+                
+//             }
+//         });
+//     })
+// }
 
 //  SQLLL
 recipe.comment_update = (recipe) => {
