@@ -25,6 +25,10 @@ app.use('/accounts', accounts);
 var recipes = require('./routes/recipes.js');
 app.use('/recipes', recipes);
 
+//Setting up recipes route
+var recipes = require('./routes/recipeDetails');
+app.use('/recipeDetails', recipes);
+
 //Setting up homepage routes
 var homepage = require('./routes/homepage');
 app.use("/index",homepage);
