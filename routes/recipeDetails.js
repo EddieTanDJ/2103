@@ -7,6 +7,6 @@ router.get("/",recipe.details);
 
 router.post("/",recipe.comment_post);
 router.post("/update",recipe.comment_update);
-router.delete("/",recipe.comment_delete);
+router.post("/delete",recipe.comment_delete);
 
 module.exports = router;
