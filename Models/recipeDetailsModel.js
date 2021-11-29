@@ -1,5 +1,4 @@
 const DBConnections = require('./db');
-const sql = DBConnections.mySqlConnection;
 const mongo = DBConnections.mongoConnection;
 
 const recipe = function (recipe){
@@ -23,59 +22,45 @@ const recipe = function (recipe){
     this.flag = recipe.flag;
 };
 
-// function currentDate() {
-//     let dateObj = new Date();
-//     // adjust 0 before single digit date
-//     let date = ("0" + dateObj.getDate()).slice(-2);
-//     let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
-//     let year = dateObj.getFullYear();
-//     let hours = dateObj.getHours();
-//     let minutes = dateObj.getMinutes();
-//     let seconds = dateObj.getSeconds();
-//     // return date & time in YYYY-MM-DD HH:MM:SS format
-//     return `${year}-${month}-${date} ${hours}:${minutes}:${seconds}`;
-// };
-
-
+/**__________________ START OF QUERY FOR ALL RECIPE DETAILS __________________*/
+/** Recipe's information related */
 recipe.details = (recipe) => {
     return new Promise((resolve, reject) => {
         
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").find(
             {recipeID:recipe.recipeID}).toArray(function(err, result) {
-            // if (err) throw err;
             if(err){
                 reject(err);
             }else{
                 resolve(result);
             }
-            console.log(result);    //for testing
         });
     })
 }
-
+/** Recipe's comments related */
 recipe.comment_get = (recipe) => {
     return new Promise((resolve, reject) => {
         
         mongo.collection("Recipe_Review").find(
             {recipeID:recipe.recipeID}).toArray(function(err, result) {
-            // if (err) throw err;
             if(err){
                 reject(err);
             }else{
                 resolve(result);
             }
-            console.log(result);    //for testing
         });
     })
 }
+/**___________________ END OF QUERY FOR ALL RECIPE DETAILS ___________________*/
 
-//  SQLLL
-recipe.comment_id = (recipe) => {
+
+/**___________________ START OF INSERTION FOR NEW COMMENT ____________________*/
+/** Getting maximum reviewID's value, Increment by 1 */
+recipe.comment_id = () => {
     return new Promise((resolve, reject) => {
 
         mongo.collection("Recipe_Review").find().project(
             {reviewID:1, _id:0}).sort({reviewID:-1}).limit(1).toArray((err, result) => {
-                // if (err) throw err;
                 if(err){
                     reject(err);
                 }else{
@@ -86,21 +71,9 @@ recipe.comment_id = (recipe) => {
         });
     });
 }
-
-//  SQLLL
+/** Inserting required informations for new comment creation */
 recipe.comment_insert = (recipe) => {
     return new Promise((resolve, reject) => {
-
-        // let dateObj = new Date();
-        // // adjust 0 before single digit date
-        // let date = ("0" + dateObj.getDate()).slice(-2);
-        // let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
-        // let year = dateObj.getFullYear();
-        // let hours = dateObj.getHours();
-        // let minutes = dateObj.getMinutes();
-        // let seconds = dateObj.getSeconds();
-        // // prints date & time in YYYY-MM-DD HH:MM:SS format
-        // let currentDate = `${year}-${month}-${date} ${hours}:${minutes}:${seconds} `;
 
         var commentObj = {
             recipeID: recipe.recipeID,
@@ -134,14 +107,12 @@ recipe.comment_insert = (recipe) => {
         });
     })
 }
-
+/** ACTTIVATE AFTER NEW INSERTION AND DELETION OF COMMENT
+ *  Calculate and Update total aggregatedRating and reviewCount
+ */
 recipe.comment_aggregate_update = (recipe) => {
     return new Promise((resolve, reject) => {
 
-        // update aggrRating, numOfComments in Recipe Table
-        // make this as pipeline
-        // https://stackoverflow.com/questions/36926618/mongodb-calculating-score-from-existing-fields-and-putting-it-into-a-new-field-i
-        // ^ Step 2
         var addORminus = recipe.flag==1?1:-1;
 
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").aggregate(
@@ -150,16 +121,13 @@ recipe.comment_aggregate_update = (recipe) => {
             { $group: {
                 _id: "$recipeID",
                 aggregatedRating: {
-                    // $divide: [{
                     $sum: {
                         "$add": [
                             { "$ifNull": [ { $multiply: [ "$aggregatedRating", "$reviewCount" ] }, 0 ] },
                             { "$ifNull": [ { $multiply: [ addORminus, recipe.rating ] }, 0 ] }
                         ]
                     }
-                        // }}, { $inc: {"$reviewCount": 1} }
-                    // ]
-                }, // ((rating x count) + currRating)/(count+1)
+                },
                 reviewCount: {
                     $sum: {
                         "$add": [
@@ -213,31 +181,11 @@ recipe.comment_aggregate_update = (recipe) => {
         });
     })
 }
+/**_____________________ END OF INSERTION FOR NEW COMMENT ____________________*/
 
-/** remove match then it can flush all */
-// recipe.comment_aggregate = (recipe) => {
-//     return new Promise((resolve, reject) => {
 
-//         // update aggrRating, numOfComments in Recipe Table
-//         mongo.collection("review").aggregate([{ $match: { recipeID:recipe.recipeID } },
-//         {   $group: {
-//                 _id: "$recipeID",
-//                 count: { $sum: 1 },
-//                 aggregatedRating: {$avg: { $sum: "$rating" }}
-
-//         }}]).toArray((err, result) =>{
-//             if (err){
-//                 reject(err);
-//             }
-//             else{
-//                 resolve(result);
-                
-//             }
-//         });
-//     })
-// }
-
-//  SQLLL
+/**_______________ START OF UPDATES FOR MODIFICATION OF COMMENT ______________*/
+/** Updating any changes on recipe's rating or comment */
 recipe.comment_update = (recipe) => {
     return new Promise((resolve, reject) => {
 
@@ -246,13 +194,6 @@ recipe.comment_update = (recipe) => {
             { $match: { "reviewID": recipe.reviewID }},
             { $project: {
                 _id: 0,
-                // identical: {
-                //     $and: [{
-                //         $eq: ["$rating", recipe.rating]
-                //     }, {
-                //         $eq: ["$reviewDesc", recipe.reviewDesc]
-                //     }]
-                // },
                 prvRating: "$rating",
                 notIdentical: {
                     $switch: {
@@ -296,11 +237,12 @@ recipe.comment_update = (recipe) => {
                 }
                 resolve(result);
             }
-                // update aggrRating
         });
     })
 }
-
+/** ACTTIVATE AFTER UPDATES ON MODIFICATION OF COMMENT
+ *  Calculate and Update total aggregatedRating
+ */
 recipe.comment_update_avgRating = (recipe) => {
     return new Promise((resolve, reject) => {
 
@@ -324,7 +266,7 @@ recipe.comment_update_avgRating = (recipe) => {
                     $round: [ { $divide: ["$aggregatedRating", "$reviewCount"] }, 1 ]
                 }
             }}
-        ]).toArray((err, result) => {       // ,{ upsert: true }
+        ]).toArray((err, result) => {
                 if (err){
                     console.log(err, " err again");
                 }
@@ -362,14 +304,16 @@ recipe.comment_update_avgRating = (recipe) => {
         });
     })
 }
+/**________________ END OF UPDATES FOR MODIFICATION OF COMMENT _______________*/
 
 
-//  SQLLL
+/**__________________ START OF DELETION FOR EXISTING COMMENT _________________*/
+/** Deleting comment based on seleted review by reviewID */
 recipe.comment_delete = (recipe) => {
     return new Promise((resolve, reject) => {
         try {
             mongo.collection("Recipe_Review").deleteOne(
-                { reviewID:recipe.reviewID },(err,result) =>{   //later change back to reviewID:recipe.reviewID   reviewDesc:recipe.reviewDesc
+                { reviewID:recipe.reviewID },(err,result) =>{
                     if (err){
                         reject(err);
                     }
@@ -382,7 +326,10 @@ recipe.comment_delete = (recipe) => {
         }
     })
 }
-
+/** Getting required information for the
+ *  calculation of aggregatedRating (recipe.comment_aggregate_update)
+ *  after comment deletion
+ */
 recipe.comment_get_one = (recipe) => {
     return new Promise((resolve, reject) => {
         
@@ -396,75 +343,7 @@ recipe.comment_get_one = (recipe) => {
         });
     })
 }
-
-// recipe.comment_aggregate_delete = (recipe) => {
-//     return new Promise((resolve, reject) => {
-
-//         mongo.collection("Recipe_Nutrition_Ingredient_Duration").aggregate(
-//             [
-//                 { $match: { recipeID:recipe.recipeID } },
-//                 { $group: {
-//                     _id: "$recipeID",
-//                     aggregatedRating: {
-//                             $sum: {
-//                                 "$add": [
-//                                     { "$ifNull": [ { $multiply: [ "$aggregatedRating", "$reviewCount" ] }, 0 ] },
-//                                     { "$ifNull": [ -recipe.rating, 0 ] }
-//                                 ]}
-//                     }, // ((rating x count) - currRating)/(count-1)
-//                     reviewCount: {
-//                         $sum: {
-//                             "$add": [
-//                                 { "$ifNull": [ "$reviewCount", 0 ] },
-//                                 { "$ifNull": [ -1, 0 ] }
-//                             ]}
-//                     }
-//                 }},
-//                 {
-//                     $project: {
-//                         _id: 0,
-//                         reviewCount:  1,
-//                         aggregatedRating: { $round: [ { $divide: ["$aggregatedRating", "$reviewCount"] }, 1 ] }
-//                     }
-//                 }                                                             
-//             ]).toArray((err, result) => {
-//                 if (err){
-//                     reject(err);
-//                 }
-//                 else{
-//                     console.log(result[0]);
-//                     try {
-//                         mongo.collection("Recipe_Review").updateMany(
-//                             { recipeID: recipe.recipeID },
-//                             { $set: result[0]},(err,result) =>{
-//                             if (err){
-//                                 reject(err);
-//                             }
-//                             else{
-//                                 resolve(result);
-//                             }
-//                         });
-//                     } catch (err) {
-//                         reject(err);
-//                     }
-//                     try {
-//                         mongo.collection("Recipe_Nutrition_Ingredient_Duration").updateOne(
-//                             { recipeID: recipe.recipeID },
-//                             { $set: result[0]},(err,result) =>{ // result[0] OR to change back { reviewCount: 2, aggregatedRating: 4.5 }
-//                             if (err){
-//                                 reject(err);
-//                             }
-//                             else{
-//                                 resolve(result);
-//                             }
-//                         });
-//                     } catch (err) {
-//                         reject(err);
-//                     }
-//                 }
-//             });
-//     })
-// }
+/**_______________ END OF UPDATES FOR MODIFICATION OF COMMENTS _______________*/
 
 
 module.exports = recipe;

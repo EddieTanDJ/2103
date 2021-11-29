@@ -1,4 +1,3 @@
-const { comment_update } = require("../Models/recipeDetailsModel.js");
 const recipe = require("../Models/recipeDetailsModel.js");
 
 /** QUERY ALL RECIPE DETAILS
@@ -13,7 +12,6 @@ exports.details = async (req, res) => {
     const cmtResult = await recipe.comment_get(req.body);
 
     res.send([detsResult,cmtResult]);
-    // res.send(cmtResult);
 }
 
 /** INSERT COMMENT
@@ -52,10 +50,12 @@ exports.comment_post = async (req, res) => {
         console.log(req.body); // remove later
 
         const result = await recipe.comment_insert(req.body);
+        
         console.log(result);
         if (result) {
             req.body["flag"] = 1;
             const aggrUpdResult = await recipe.comment_aggregate_update(req.body);
+
             console.log(aggrUpdResult);
         }
 
@@ -81,7 +81,6 @@ exports.comment_post = async (req, res) => {
 exports.comment_update = async (req, res) => {
     try{
         const result = await recipe.comment_update(req.body);
-        // console.log(!(result[0].notIdentical === "none")+"here");
 
         if(!(result[0].notIdentical === "none")) {
             console.log(req.body);
@@ -119,7 +118,7 @@ exports.comment_delete = async (req, res) => {
     if (cmtResult_one) {
 
         const result = await recipe.comment_delete(req.body);
-        // console.log(req.body)
+        
         try {
             if (result) {
                 const body = cmtResult_one[0];
