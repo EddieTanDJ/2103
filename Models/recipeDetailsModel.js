@@ -166,7 +166,7 @@ recipe.comment_aggregate_update = (recipe) => {
                 try {
                     mongo.collection("Recipe_Nutrition_Ingredient_Duration").updateOne(
                         { recipeID: recipe.recipeID },
-                        { $set: result[0] },(err,result) =>{ // result[0] OR to change back { reviewCount: 2, aggregatedRating: 4.5 }
+                        { $set: result[0] },(err,result) =>{
                         if (err){
                             reject(err);
                         }
@@ -222,7 +222,7 @@ recipe.comment_update = (recipe) => {
                     try {
                         mongo.collection("Recipe_Review").updateOne(
                             { reviewID: recipe.reviewID },
-                            { $set: updateObj},(err,result) => {        //,{ upsert: true }
+                            { $set: updateObj},(err,result) => {
                             if (err){
                                 reject(err);
                             }
@@ -289,7 +289,7 @@ recipe.comment_update_avgRating = (recipe) => {
                     try {
                         mongo.collection("Recipe_Nutrition_Ingredient_Duration").updateOne(
                             { recipeID: result[0]._id },
-                            { $set: { aggregatedRating: result[0].aggregatedRating } },(err,result) =>{ // result[0] OR to change back { reviewCount: 2, aggregatedRating: 4.5 }
+                            { $set: { aggregatedRating: result[0].aggregatedRating } },(err,result) =>{
                             if (err){
                                 reject(err);
                             }
