@@ -114,6 +114,7 @@ recipe.comment_aggregate_update = (recipe) => {
     return new Promise((resolve, reject) => {
 
         var addORminus = recipe.flag==1?1:-1;
+        var addORminus_rating = recipe.flag==1?recipe.rating:-recipe.rating;
 
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").aggregate(
         [
@@ -124,7 +125,7 @@ recipe.comment_aggregate_update = (recipe) => {
                     $sum: {
                         "$add": [
                             { "$ifNull": [ { $multiply: [ "$aggregatedRating", "$reviewCount" ] }, 0 ] },
-                            { "$ifNull": [ { $multiply: [ addORminus, recipe.rating ] }, 0 ] }
+                            { "$ifNull": [ addORminus_rating, 0 ] }
                         ]
                     }
                 },
