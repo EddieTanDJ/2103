@@ -17,7 +17,7 @@
                     <h1>Recipe Details</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/index">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Recipe Details</li>
                         </ol>
                     </nav>
@@ -119,7 +119,13 @@
                                         <label for="star1" title="text">1 star</label>
                                     </div>
                                 </div>
-
+                                <% if(user){ %>
+                                        <input type="text" id="userID" name="userID" value="<%-user[0].id%>" hidden />
+                                        <input type="text" id="userName" name="userName" value="<%-user[0].username%>" hidden />
+                                    <% } else { %>
+                                        <input type="text" id="userID" name="userID" value="0" hidden />
+                                        <input type="text" id="userName" name="userName" value="Anonymous" hidden />
+                                        <%}%>
                                 <button type="submit" class="metro_btn-custom primary" name="button">Send
                                     Comment</button>
                             </form>
@@ -157,13 +163,13 @@
             <script>
                 var rating = 0;
                 var urlParams = new URLSearchParams(window.location.search);
+                var userID = document.getElementById('userID').value;
+                var userName = document.getElementById('userName').value;
                 window.onload = function () {
 
                     
                     if (urlParams.has('recipeID')) {
                         var query = urlParams.get('recipeID')
-
-                        console.log(query)
 
                         $.ajax({
                             type: "POST",
@@ -216,9 +222,24 @@
                         });
                     }
                 }
-                $(document).keyup(function (event) {
-                    if ($("#searchField").is(":focus") && event.key == "Enter") {
-                        window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+
+                var urlParams = new URLSearchParams(window.location.search);
+            console.log(urlParams.has('search')); // true
+            if (urlParams.has('search')) {
+                var query = urlParams.get('search')
+
+                console.log(query)
+
+                $.ajax({
+                    type: "POST",
+                    url: "/index/search",
+                    data: {
+                        search: query
+                    },
+                    success: function (result) {
+
+                        //populate page using jqury
+                        console.log(result)
                     }
                 });
 
@@ -241,9 +262,9 @@
                         data: {
                             recipeID: parseInt(urlParams.get('recipeID')),
                             //To be Changed to user when implemented jessica login
-                            reviewAuthorID: 1,
-                            reviewAuthorName: "test",
-                            //Change End
+                            reviewAuthorID: userID,
+                            reviewAuthorName: userName,
+                            //Change Ends
                             rating: rating,
                             reviewDesc : $("#reviewDesc").val()
                         },
@@ -251,11 +272,11 @@
                             alert(status + " " + err);
                         },
                         success: function (result) {
-                            alert("Succesful");
-                            window.location.replace("/accounts")
+                            window.location.reload();
                         }
                     });
                 }
+            }
             </script>
 
 </body>

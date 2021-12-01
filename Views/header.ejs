@@ -10,17 +10,20 @@
             <a href="all-recipes.html">Recipes</a>
         </li>
         <li class="menu-item menu-item-has-children">
-            <a href="contact-us.html">Contact Us</a>
-        </li>
-        <li class="menu-item menu-item-has-children">
-            <a href="team.html">Team</a>
-        </li>
-        <li class="menu-item menu-item-has-children">
             <a href="search-by-Ingredient.html">Search By Ingredient</a>
         </li>
-        <li class="menu-item menu-item-has-children">
-            <a href="/accounts">Sign In</a>
+        <% if(!user) { %>
+        <li id="signIn" class="menu-item menu-item-has-children">
+                <a href="/accounts">Sign In</a>
         </li>
+        <% } else {%>
+        <li class="menu-item menu-item-has-children">
+            <a class="signin" href="/accounts/userDetails"><i class="fas fa-user-edit"> Edit Profile</i></a>
+        </li>
+        <li id="signIn" class="menu-item menu-item-has-children">
+            <a class="signin" href="/accounts"><i class="fas fa-sign-out-alt"> Sign Out</i></a>
+        </li>
+        <% } %>
     </ul>
 
 </aside>
@@ -49,10 +52,19 @@
                 </div>
             </div>
             <!-- Menu Bar -->
+            <% if(!user) { %>
+
             <div class="d-none d-xl-inline-block rigth-menu">
                 <a class="signin" href="/accounts">Sign In</a>
-
             </div>
+            <% } else {%>
+
+            <div class="d-none d-xl-inline-block rigth-menu">
+                <a class="signin" href="/accounts/userDetails"><i class="fas fa-user-edit"> Edit Profile</i></a>
+                <a class="signin" href="/accounts/logout"><i class="fas fa-sign-out-alt"> Sign Out</i></a>
+            </div>
+            <% } %>
+
         </div>
     </div>
     <!-- Middle Header End -->

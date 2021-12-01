@@ -3,13 +3,20 @@ const homepage = require("../Models/homepageModel");
 
 //Get User Details
 exports.search = async (req, res) => {
+    var user = null;
+    if(req.isAuthenticated) user = req.user;
     const result = await homepage.search(req.body);
     console.log("After NoSQL")
+    result["user"] = user;
     res.send(result)
 }
 
 //Start the index
 exports.start = async (req, res) => {
+
+    var user = null;
+    if(req.isAuthenticated) user = req.user;
+    console.log(req.user)
 
     const headerCtg = await homepage.headerCtg();
     img1 = headerCtg[0].image;
@@ -39,6 +46,7 @@ exports.start = async (req, res) => {
         imgName3: imgName3,
 
         popularRecipe: popularRecipe,
-        featuredRecipe: featuredRecipe
+        featuredRecipe: featuredRecipe,
+        user: user
     });
 }

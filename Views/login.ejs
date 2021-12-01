@@ -15,6 +15,9 @@
             <div class="col-12 col-lg-8">
                 <div class="card shadow-sm border-0">
                     <div class="card-body">
+                        <div id="alertPW" class="alert alert-danger fs-sm-1" hidden>
+                                Password does not match!
+                            </div>
                         <h5 class="mb-0"></h5>
                         <hr>
                         <div class="card shadow-none border">
@@ -42,8 +45,8 @@
                             <p>New here? <a href="/accounts/register">Click this to Register!</a></p>
                         </div>
 
-                        <div class="text-start d-inline-block">
-                            <button type="submit" class="btn btn-primary px-4 button-login">Login</button>
+                        <div class="text-start d-inline-block  float-right">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 button-login">Login</button>
                         </div>
                         </form>
 
@@ -90,8 +93,8 @@
                             password: $("#password").val()
                         },
                         error: function (xhr, status, err) {
-                            var err = eval("(" + xhr.responseText + ")");
-                            alert(err.Message);
+                            // var err = eval("(" + xhr.responseText + ")");
+                            $("#alertPW").attr("hidden", false);
                         },
                         success: function (result) {
 

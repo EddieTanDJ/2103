@@ -4,8 +4,7 @@ const recipe = require("../Controllers/recipeController.js");
 
 
 router.get("/",(req,res)=> {
-
-    res.render('recipes');
+    res.render('recipes', {user:req.user});
 })
 
 

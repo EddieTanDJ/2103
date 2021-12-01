@@ -9,10 +9,11 @@ const account = function (account){
     this.password = account.password;
 };
 
+// Insert new user to MySQL database
 account.registerMySQL = (account) => {
     return new Promise((resolve, reject) => {
     
-        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password], (err,result) => {
+        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password1], (err,result) => {
             if(err){
                 reject(err);
             }else{
@@ -23,6 +24,7 @@ account.registerMySQL = (account) => {
     })
 }
 
+// Insert new user to NoSQL database
 account.registerNoSQL = (account) => {
     return new Promise((resolve, reject) => {
         
@@ -31,7 +33,7 @@ account.registerNoSQL = (account) => {
             fname: account.fname,
             lname: account.lname,
             email: account.email,
-            password: account.password};
+            password: account.password1};
 
         mongo.collection("users").insertOne(
             noSQLObj,(err,result) =>{
@@ -46,6 +48,7 @@ account.registerNoSQL = (account) => {
     })
 }
 
+// Select all the users base on the input email
 account.login = (account) => {
     return new Promise((resolve,reject) => {
         sql.query('SELECT * from users where email = ? ', [account.email], (err,result) => {
@@ -55,6 +58,75 @@ account.login = (account) => {
                 resolve(result);
             }
         })
+    })
+}
+
+
+// Update user's password base on the input email into MySQL database
+account.updateUserInfoMySQL = (account) => {
+    return new Promise((resolve, reject) => {
+
+        sql.query('UPDATE users SET password = ? WHERE email = ?', [account.pwd, account.email], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+
+    })
+}
+
+// Update user's password base on the input email into NoSQL database
+account.updateUserInfoNoSQL = (account) => {
+    return new Promise((resolve, reject) => {
+
+        mongo.collection("users").updateOne({
+            email: account.email
+        }, {
+            $set: {
+                password: account.pwd
+            }
+        }, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+
+    })
+}
+
+// Delete user from MySQL database
+account.deleteUserInfoMySQL = (account) => {
+    return new Promise((resolve, reject) => {
+
+        sql.query('DELETE FROM users WHERE email = ?', [account.email], (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        })
+
+    })
+}
+
+// Delete user from NoSQL database
+account.deleteUserInfoNoSQL = (account) => {
+    return new Promise((resolve, reject) => {
+
+        mongo.collection("users").deleteOne({
+            email: account.email
+        }, (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+
     })
 }
 

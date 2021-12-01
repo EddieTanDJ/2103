@@ -4,7 +4,7 @@ const recipe = require("../Models/recipeModel");
 //Get User Details
 exports.search = async (req, res) => {
     
-    res.render('search-result');
+    res.render('search-result', {user:req.user});
 }
 
 exports.details =async(req,res) => {
