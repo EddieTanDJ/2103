@@ -1,6 +1,6 @@
 const DBConnections=require('./db');
 const sql = DBConnections.mySqlConnection;
-const mongo = DBConnections.mongo;
+const mongo = DBConnections.mongoConnection;
 
 
 const account = function (account){
@@ -9,16 +9,40 @@ const account = function (account){
     this.password = account.password;
 };
 
-account.register = (account) => {
+account.registerMySQL = (account) => {
     return new Promise((resolve, reject) => {
     
-        sql.query('INSERT INTO users (fname,lname,email,password) VALUES ( ?, ?, ?,?)', [account.fname,account.lname,account.email,account.password], (err,result) => {
+        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password], (err,result) => {
             if(err){
                 reject(err);
             }else{
                 resolve(result);
             }
         })
+
+    })
+}
+
+account.registerNoSQL = (account) => {
+    return new Promise((resolve, reject) => {
+        
+        var noSQLObj = {
+            username: account.username,
+            fname: account.fname,
+            lname: account.lname,
+            email: account.email,
+            password: account.password};
+
+        mongo.collection("users").insertOne(
+            noSQLObj,(err,result) =>{
+            if (err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        });
+
     })
 }
 
@@ -31,17 +55,6 @@ account.login = (account) => {
                 resolve(result);
             }
         })
-        async function findUsers(mongo,resultsLimit){
-            const cursor = mongo
-                .db('ICT2103')
-                .collection('users')
-                .find()
-                .limit(resultsLimit);
-                const results = await cursor.toArray();
-                console.log(results);
-        }
-
-        
     })
 }
 

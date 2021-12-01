@@ -5369,3 +5369,59 @@ td.remove{
 .rate > label:hover ~ input:checked ~ label {
   color: #c59b08;
 }
+
+.form-control2 {
+  height: 60px;
+  padding: 8px 20px;
+  border-radius: 0;
+  border: 1px solid #ebebeb;
+  width: 50%;
+  color: #7a7a7a;
+  background-color: #fff;
+  letter-spacing: 0.1px;
+  font-size: 15px;
+}
+
+.button-login{
+  margin-left: 620px;
+}
+.button-register{
+  margin-left: 850px;
+
+}
+
+.login-form{
+  width: 200%;
+}
+
+.recipe-list{
+  border-radius: 10px;
+}
+.recipe-col-img{
+  margin-right: -580px;
+}
+.recipe-col-img img{
+  width: 200px;height: 150px;border-radius: 10px;
+}
+.recipe-col-detail{
+  margin-top: 10px;
+}
+.recipe-col-detail p{
+  margin-bottom: 0px;
+}
+#recipeName{
+  font-size: 25px;
+  font-weight: bold;
+}
+#recipeAuthor{
+  font-size: 10px;
+}
+#recipeRating{
+  font-size: 15px;
+}
+#recipeDescription{
+  width: 750px;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}

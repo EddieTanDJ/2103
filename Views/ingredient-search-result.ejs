@@ -61,6 +61,7 @@
                 function createCard(cardData) {
                     var cardTemplate = [
                         '<div class="card recipe-list">',
+
                         '<a href="/recipes?recipeID=' + cardData.recipeID+'">',
                         '<div class="row">',
                         '<div class="col recipe-col-img">',
@@ -127,14 +128,11 @@
                 };
 
 
-
-
                 $(document).keyup(function (event) {
                     if ($("#searchField").is(":focus") && event.key == "Enter") {
                         window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
                     }
                 });
-
 
             </script>
 </body>

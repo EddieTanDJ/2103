@@ -14,13 +14,15 @@ exports.register = async (req, res) => {
         const password = await bcrypt.hashSync(userDetails.password, salt);
         userDetails.password = password;
 
-        const result = await account.register(userDetails);
-        console.log(result);
-        res.send(result);
+        const resultMySQL = await account.registerMySQL(userDetails);
+        const resultNoSQL = await account.registerNoSQL(userDetails);
+        console.log(resultMySQL);
+        console.log(resultNoSQL);
+        res.send(resultMySQL);
 
     } catch (err) {
         console.error(err);
-        res.status(500).send(err);
+        res.status(401).send(err);
 
     }
 
@@ -30,7 +32,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
 
     const userDetails = req.body
-    console.log(req.body)
+    console.log(req.body.email)
 
     const result = await account.login(userDetails);
 
