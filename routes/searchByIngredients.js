@@ -6,11 +6,11 @@ const ingredients = require("../Controllers/searchByIngredientController.js");
 var itemRouter = express.Router({strict: true});
 
 router.get('/search-result', (req,res)=>{
-    res.render("ingredient-search-result")
+    res.render("ingredient-search-result", {user:req.user})
 });
 
 router.get("/",(req,res)=>{
-    res.render("search-by-Ingredient")
+    res.render("search-by-Ingredient", {user:req.user})
 });
 
 router.post("/search",ingredients.query);
