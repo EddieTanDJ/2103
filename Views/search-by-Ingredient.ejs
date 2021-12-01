@@ -129,11 +129,16 @@
     }
     ingredientForm.onsubmit = async (e) => {
         e.preventDefault();
-        window.location.replace("/searchByIngredients/search-result?int1="+$("#int1").val()+"&int2="+$("#int2").val()+"&int3="+$("#int3").val()+"&noOfInt="+
-        $("#ingredients").val())
-        
+        window.location.replace("/searchByIngredients/search-result?int1=" + $("#int1").val() + "&int2=" + $("#int2").val() + "&int3=" + $("#int3").val() + "&noOfInt=" +
+            $("#ingredients").val())
+
     }
 
+    $(document).keyup(function (event) {
+        if ($("#searchField").is(":focus") && event.key == "Enter") {
+            window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+        }
+    });
 </script>
 
 </html>

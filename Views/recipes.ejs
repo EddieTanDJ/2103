@@ -36,48 +36,26 @@
                         <!-- Content  -->
                         <div class="metro_post-single-wrapper metro_recipe-single-wrapper">
 
-                            <h2 class="entry-title">Planting Season Begins</h2>
-                            <div class="metro_rating-wrapper">
-                                <div class="metro_rating">
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star active"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>
-                                <span>4 Stars</span>
-                            </div>
+                            <h1 id="recipeName"></h1>
+                            <h2 class="entry-title"></h2>
 
                             <div class="metro_post-single-thumb">
-                                <img src="assets/img/recipe/1.jpg" alt="post">
+                                <img id="recipeImage" src="" alt="post">
                             </div>
 
                             <!-- Entry Content Start -->
                             <div class="entry-content">
                                 <span class="metro_post-meta">
-                                    <a href="#"> <i class="far fa-user"></i> Michel </a>
-                                    <a href="blog-details.html"> <i class="far fa-clock"></i> 55 minutes</a>
+
+                                    <i id="authorName" class="far fa-user"></i>
+                                    <i id="totalTime" class="far fa-clock"></i>
                                 </span>
 
-                                <p>
-                                    Cras ultricies ligula sed magna dictum porta. Cras ultricies ligula sed magna dictum
-                                    porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                                    cubilia
-                                    Curae;
-                                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque
-                                    velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie
-                                    malesuada.
-                                    Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget
-                                    malesuada.
-                                    Cras ultricies ligula sed magna dictum porta. Cras ultricies ligula sed magna dictum
-                                    porta. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere
-                                    cubilia
-                                    Curae;
-                                    Donec velit neque, auctor sit amet aliquam vel, ullamcorper sit amet ligula. Quisque
-                                    velit nisi, pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie
-                                    malesuada.
-                                    Cras ultricies ligula sed magna dictum porta. Donec rutrum congue leo eget
-                                    malesuada.
+                                <p id="recipeDescription">
+
+                                </p>
+
+                                <p id="recipeInstructions">
                                 </p>
 
                                 <div class="row">
@@ -85,25 +63,22 @@
                                         <div class="metro_nutritional-facts">
                                             <h4>Nutrition</h4>
                                             <ul>
-                                                <li> 1 Cup Sifted all purpose Flour </li>
-                                                <li> 4 Cups Dry-roasted macadamia nuts </li>
-                                                <li> 4 Large eggs </li>
-                                                <li> 5 Cup sifted all purpose flour </li>
-                                                <li> 8 Cups dry-roasted macadami nuts </li>
-                                                <li> 5 Mineral water </li>
+                                                <li> Calories: <span id= "calories"></span> </li>
+                                                <li> Sugar: <span id="sugar"></span> </li>
+                                                <li> Protein: <span id="protein"></span> </li>
+                                                <li> Fat: <span id="fat"></span> </li>
+                                                <li> Carbs: <span id="carbs"></span> </li>
+                                                <li> Cholestorol: <span id="cholestorol"></span> </li>
+                                                <li> Fiber: <span id="fiber"></span> </li>
+                                                <li> Saturated Fat: <span id="satFat"></span> </li>
+                                                <li> Sodium: <span id="sodium"></span> </li>
                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="metro_ingredients">
                                             <h4>Ingredients</h4>
-                                            <ul>
-                                                <li> Calories <span>329</span> </li>
-                                                <li> Sugar <span>10.5g</span> </li>
-                                                <li> Protein <span>22.5g</span> </li>
-                                                <li> Fat <span>3g</span> </li>
-                                                <li> Carbs <span>18g</span> </li>
-                                                <li> Food Far <span>0.1</span> </li>
+                                            <ul id="ingredient">
                                             </ul>
                                         </div>
                                     </div>
@@ -119,14 +94,7 @@
                             <ul>
                                 <li class="comment-item">
                                     <img src="assets/img/people/avatar-0.png" alt="comment author">
-                                    <div class="comment-body">
-                                        <h5>Francine</h5>
-                                        <span>January 13 2020</span>
-                                        <p>Leverage agile frameworks to provide a robust synopsis for high level
-                                            overviews.
-                                            Iterative approaches to corporate strategy foster collaborative thinking to
-                                            further the overall value proposition.</p>
-                                        <a href="#" class="btn-link"> Reply <i class="fas fa-arrow-right"></i> </a>
+                                    <div id="commentBody" class="comment-body">
                                     </div>
                                     <ul>
                                         <li class="comment-item">
@@ -134,9 +102,7 @@
                                             <div class="comment-body">
                                                 <h5>John</h5>
                                                 <span>January 13 2020</span>
-                                                <p>Leverage agile frameworks to provide a robust synopsis for high level
-                                                    overviews. Iterative approaches to corporate strategy foster
-                                                    collaborative thinking to further the overall value proposition.</p>
+                                                <p>Same, I had one of the best eggs in my life</p>
                                                 <a href="#" class="btn-link"> Reply <i class="fas fa-arrow-right"></i>
                                                 </a>
                                             </div>
@@ -148,9 +114,7 @@
                                     <div class="comment-body">
                                         <h5>Mich</h5>
                                         <span>January 13 2020</span>
-                                        <p>Leverage agile frameworks to provide a robust synopsis for high level
-                                            overviews.
-                                            Iterative approaches</p>
+                                        <p>Love the egg, would prefer it to be more flavourful by adding a little citrus</p>
                                         <a href="#" class="btn-link"> Reply <i class="fas fa-arrow-right"></i> </a>
                                     </div>
                                 </li>
@@ -209,75 +173,81 @@
 
         <%- include('footer.ejs') %>
 
-        <!-- Vendor Scripts -->
-        <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
-        <script src="assets/js/plugins/popper.min.js"></script>
-        <script src="assets/js/plugins/waypoint.js"></script>
-        <script src="assets/js/plugins/bootstrap.min.js"></script>
-        <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
-        <script src="assets/js/plugins/jquery.slimScroll.min.js"></script>
-        <script src="assets/js/plugins/imagesloaded.min.js"></script>
-        <script src="assets/js/plugins/jquery.steps.min.js"></script>
-        <script src="assets/js/plugins/jquery.countdown.min.js"></script>
-        <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
-        <script src="assets/js/plugins/slick.min.js"></script>
-        <script src="assets/js/plugins/ion.rangeSlider.min.js"></script>
-        <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+            <!-- Vendor Scripts -->
+            <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
+            <script src="assets/js/plugins/popper.min.js"></script>
+            <script src="assets/js/plugins/waypoint.js"></script>
+            <script src="assets/js/plugins/bootstrap.min.js"></script>
+            <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="assets/js/plugins/jquery.slimScroll.min.js"></script>
+            <script src="assets/js/plugins/imagesloaded.min.js"></script>
+            <script src="assets/js/plugins/jquery.steps.min.js"></script>
+            <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+            <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
+            <script src="assets/js/plugins/slick.min.js"></script>
+            <script src="assets/js/plugins/ion.rangeSlider.min.js"></script>
+            <script src="assets/js/plugins/jquery.zoom.min.js"></script>
 
 
-        <!-- Organista Scripts -->
-        <script src="assets/js/main.js"></script>
+            <!-- Organista Scripts -->
+            <script src="assets/js/main.js"></script>
 
+            <script>
 
-        <script>
-            document.onload = function () {
-                function createCard(cardData) {
-                    var cardTemplate = [
-                        '<div class="card">',
-                        '<p>My name is: ',
-                        cardData.Name || 'No name provided',
-                        '</p>',
-                        '<p>My job is: ',
-                        cardData.Job || 'No job provided',
-                        '</p></div>'
-                    ];
+                window.onload = function () {
 
-                    // a jQuery node
-                    return $(cardTemplate.join(''));
+                    var urlParams = new URLSearchParams(window.location.search);
+                    if (urlParams.has('recipeID')) {
+                        var query = urlParams.get('recipeID')
+
+                        console.log(query)
+
+                        $.ajax({
+                            type: "POST",
+                            url: "/recipes/details",
+                            data: {
+                                recipeID: query
+                            },
+                            success: function (result) {
+                                console.log(result)
+                                console.log(result[0].image.split(", ")[0])
+                                $('#recipeName').append(result[0].recipeName);
+                                $('#recipeImage').prop("src", result[0].image.split(", ")[0]);
+                                $('#authorName').append(" " + result[0].authorName + " ");
+                                $('#totalTime').append(" " + result[0].totalTime);
+                                $('#recipeDescription').append(" " + result[0].description);
+                                $('#recipeInstructions').append(" " + result[0].instructions.replaceAll(".,", "</br>"));
+                                $('#calories').append(result[0].calories);
+                                $('#sugar').append(result[0].sugarContent);
+                                $('#protein').append(result[0].proteinContent);
+                                $('#fat').append(result[0].fatContent);
+                                $('#carbs').append(result[0].carboContent);
+                                $('#cholestorol').append(result[0].cholestorolContent);
+                                $('#fiber').append(result[0].fiberContent);
+                                $('#satFat').append(result[0].satFatContent);
+                                $('#sodium').append(result[0].sodium);
+                                $('#ingredient').append("<li>" + result[0].ingredientName.replaceAll(", ","</li><li>"));
+
+                                if(result[0].RecipeDetails[0]){
+                                    $("#commentBody").append('<h5 id="reviewerName">'+result[0].RecipeDetails[0].reviewAuthorName+'</h5>'+
+                                        '<span id="reviewDate">'+result[0].RecipeDetails[0].dateModified+'</span>'+
+                                        '<p id="review">'+result[0].RecipeDetails[0].reviewDesc+'</p>'+
+                                        '<a href="#" class="btn-link"> Reply <i class="fas fa-arrow-right"></i> </a>')
+                                }
+                                else{
+                                    $("#commentBody").append('<h5 id="reviewerName">No Review</h5>')
+                                }
+                            }
+                        });
+                    }
                 }
-            };
-            var urlParams = new URLSearchParams(window.location.search);
-            console.log(urlParams.has('search')); // true
-            if (urlParams.has('search')) {
-                var query = urlParams.get('search')
-
-                console.log(query)
-
-                $.ajax({
-                    type: "POST",
-                    url: "/index/search",
-                    data: {
-                        search: query
-                    },
-                    success: function (result) {
-
-                        //populate page using jqury
-                        console.log(result)
+                $(document).keyup(function (event) {
+                    if ($("#searchField").is(":focus") && event.key == "Enter") {
+                        window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
                     }
                 });
-            }
+            </script>
 
-            var cards = $();
-            // Store all the card nodes
-            result.forEach(function (item, i) {
-                cards = cards.add(createCard(item));
-            });
-
-            // Add them to the page... for instance the <body>
-            $(function () {
-                $('body').append(cards);
-            });
-        </script>
 </body>
 
 </html>

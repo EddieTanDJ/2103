@@ -22,7 +22,7 @@
                                 <h6 class="mb-0">Login</h6>
                             </div>
                             <div class="card-body">
-                                <form id="loginform" class="login-form" >
+                                <form id="loginform" class="login-form">
                                     <div class="col-6">
                                         <label class="form-label">Email</label>
                                         <input id="email" type="text" class="form-control" value="">
@@ -99,6 +99,11 @@
                         }
                     });
                 }
+                $(document).keyup(function (event) {
+                    if ($("#searchField").is(":focus") && event.key == "Enter") {
+                        window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+                    }
+                });
             </script>
 
 </body>

@@ -59,14 +59,33 @@
             <script>
 
                 function createCard(cardData) {
+                    console.log("Creating Card")
+                    if (!cardData.image) {
+                        cardData.image = '/assets/img/noImageAvailable.png'
+                    }
                     var cardTemplate = [
-                        '<div class="card">',
-                        '<p>My name is: ',
-                        cardData.recipeName || 'No name provided',
+                        '<div class="card recipe-list">',
+                        '<a id ="recipes" href="/recipes?recipeID=' + cardData.recipeID+'">',
+                        '<div class="row">',
+                        '<div class="col recipe-col-img">',
+                        '<img src="',
+                        cardData.image.split(", ")[0] || '/assets/img/noImageAvailable.png',
+                        '" alt="recipe">',
+                        '</div>',
+                        '<div class="col recipe-col-detail">',
+                        '<p id="recipeName">',
+                        cardData.recipeName || 'No recipe Name provided',
                         '</p>',
-                        '<p>My job is: ',
-                        cardData.recipeID || 'No ID provided',
-                        '</p></div>'
+                        '<p id="recipeAuthor">',
+                        cardData.authorName || 'No author provided',
+                        '</p>',
+                        '<p id="recipeRating">',
+                        cardData.aggregatedRating || 'No Rating provided',
+                        '/5</p>',
+                        '<div id="recipeDescription">',
+                        '<span>',
+                        cardData.description || 'No Rating provided',
+                        '</span></div></div></div></a></div>'
                     ];
 
                     // a jQuery node
@@ -74,6 +93,7 @@
                 }
 
                 window.onload = function () {
+
                     var urlParams = new URLSearchParams(window.location.search);
                     console.log(urlParams.has('search')); // true
                     if (urlParams.has('search')) {
@@ -92,7 +112,7 @@
                                 //populate page using jqury
                                 var cards = $();
                                 // Store all the card nodes
-
+                                console.log(result);
                                 result.forEach(function (item, i) {
                                     cards = cards.add(createCard(item));
                                     console.log("HIT")
@@ -107,7 +127,11 @@
                     }
                 };
 
-
+                $(document).keyup(function (event) {
+                    if ($("#searchField").is(":focus") && event.key == "Enter") {
+                        window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+                    }
+                });
 
             </script>
 </body>
