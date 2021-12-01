@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <%- include('meta.ejs') %>
+
+</head>
+
+<body>
+
+    <%- include('header.ejs') %>
+
+        <!-- Register Account Detail Start -->
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="mb-0">Register Account</h5>
+                        <hr>
+                        <div class="card shadow-none border">
+                            <div class="card-header">
+                                <h6 class="mb-0">USER INFORMATION</h6>
+                            </div>
+                            <div class="card-body">
+                                <form id="registerForm" class="row g-3" method="post" action="/accounts/register">
+                                    <div class="col-6">
+                                        <label class="form-label">Username</label>
+                                        <input id="username" type="text" class="form-control" value="">
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label">Email address</label>
+                                        <input id="email" type="text" class="form-control" value="">
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label class="form-label">First Name</label>
+                                        <input id="fname" type="text" class="form-control" value="">
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label class="form-label">Last Name</label>
+                                        <input id="lname" type="text" class="form-control" value="">
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label class="form-label">New Password</label>
+                                        <input type="password" class="form-control" value="">
+                                    </div>
+                                    <div class="col-6 mt-2">
+                                        <label class="form-label">Confirm New Password</label>
+                                        <input id="confirmPW" type="password" class="form-control" value="">
+                                    </div>
+
+                            </div>
+                        </div>
+                        <div class="text-start d-inline-block">
+                            <button type="submit" class="btn btn-primary px-4 button-register">Register</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- Register Account Detail End -->
+
+        <%- include('footer.ejs') %>
+
+            <!-- Vendor Scripts -->
+            <script src="assets/js/plugins/jquery-3.4.1.min.js"></script>
+            <script src="assets/js/plugins/popper.min.js"></script>
+            <script src="assets/js/plugins/waypoint.js"></script>
+            <script src="assets/js/plugins/bootstrap.min.js"></script>
+            <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
+            <script src="assets/js/plugins/jquery.slimScroll.min.js"></script>
+            <script src="assets/js/plugins/imagesloaded.min.js"></script>
+            <script src="assets/js/plugins/jquery.steps.min.js"></script>
+            <script src="assets/js/plugins/jquery.countdown.min.js"></script>
+            <script src="assets/js/plugins/isotope.pkgd.min.js"></script>
+            <script src="assets/js/plugins/slick.min.js"></script>
+            <script src="assets/js/plugins/ion.rangeSlider.min.js"></script>
+            <script src="assets/js/plugins/jquery.zoom.min.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+            <!-- Organista Scripts -->
+            <script src="assets/js/main.js"></script>
+
+            <script>
+                registerForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    console.log("Hit");
+                    $.ajax({
+                        type: "POST",
+                        url: "/accounts/register",
+                        data: {
+                            username: $("#username").val(),
+                            email: $("#email").val(),
+                            fname: $("#fname").val(),
+                            lname: $("#lname").val(),
+                            password: $("#confirmPW").val()
+                        },
+                        error: function (xhr, status, err) {
+                            alert(status + " " + err);
+                        },
+                        success: function (result) {
+                            alert("Succesful");
+                            window.location.replace("/accounts")
+                        }
+                    });
+                }
+
+                $(document).keyup(function (event) {
+                    if ($("#searchField").is(":focus") && event.key == "Enter") {
+                        window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+                    }
+                });
+            </script>
+
+</body>
+
+</html>
