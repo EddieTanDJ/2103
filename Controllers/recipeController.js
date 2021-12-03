@@ -32,11 +32,12 @@ exports.details =async(req,res) => {
     
     const cmtIDResult = await recipe.comment_id();
     console.log("Line 34")
-    
-    req.body["recipeID"] = parseInt(req.body["recipeID"])
-    req.body["reviewAuthorID"] = parseInt(req.body["reviewAuthorID"])
-    req.body["rating"] = parseInt(req.body["rating"])
     console.log(req.body)
+    
+    req.body["recipeID"] = parseInt(req.body.recipeID)
+    req.body["reviewAuthorID"] = parseInt(req.body.reviewAuthorID)
+    req.body["rating"] = parseInt(req.body.rating)
+    
     if (cmtIDResult) {
         req.body["reviewID"] = cmtIDResult;
         
