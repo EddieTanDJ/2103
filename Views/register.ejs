@@ -17,11 +17,8 @@
                 <div class="card-body">
                     <h5 class="mb-0">Register Account</h5>
                     <hr>
-                    <% if(err1) { %>
-                    <div id="alertField" class="alert alert-danger fs-sm-1">
-                        <%= err1%>
+                    <div id="alertField" class="alert alert-danger fs-sm-1" hidden>
                     </div>
-                    <%}%>
 
                         <div class="card shadow-none border">
                             <div class="card-header">
@@ -103,10 +100,11 @@
                             password: $("#confirmPW").val()
                         },
                         error: function (xhr, status, err) {
-                            alert(status + " " + err);
+                            $("#alertUsername").attr("hidden", false);
+                            // alert(status + " " + err);
                         },
                         success: function (result) {
-                            alert("Succesful");
+                            // alert("Succesful");
                             window.location.replace("/accounts")
                         }
                     });

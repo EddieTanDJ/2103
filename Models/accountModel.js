@@ -13,7 +13,7 @@ const account = function (account){
 account.registerMySQL = (account) => {
     return new Promise((resolve, reject) => {
     
-        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password1], (err,result) => {
+        sql.query('INSERT INTO users (username,fname,lname,email,password) VALUES (?, ?, ?, ?,?)', [account.username, account.fname,account.lname,account.email,account.password], (err,result) => {
             if(err){
                 reject(err);
             }else{
@@ -33,7 +33,7 @@ account.registerNoSQL = (account) => {
             fname: account.fname,
             lname: account.lname,
             email: account.email,
-            password: account.password1};
+            password: account.password};
 
         mongo.collection("users").insertOne(
             noSQLObj,(err,result) =>{
