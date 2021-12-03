@@ -19,8 +19,8 @@ exports.register = async (req, res) => {
 
         const salt = await bcrypt.genSaltSync(10);
         // now we set user password to hashed password
-        const password = await bcrypt.hashSync(userDetails.password1, salt);
-        userDetails.password1 = password;
+        const password = await bcrypt.hashSync(userDetails.password, salt);
+        userDetails.password = password;
 
         const resultMySQL = await account.registerMySQL(userDetails);
         const resultNoSQL = await account.registerNoSQL(userDetails);
