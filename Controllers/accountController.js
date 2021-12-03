@@ -101,6 +101,8 @@ exports.setUserInfo = async (req, res) => {
 
             const resultMySQL = await account.deleteUserInfoMySQL(userInfo);
             const resultNoSQL = await account.deleteUserInfoNoSQL(userInfo);
+                req.logOut()
+
             res.send(resultMySQL);
 
         } catch (err) {
