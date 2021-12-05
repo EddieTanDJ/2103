@@ -7,6 +7,7 @@ const searchQuery = function (searchQuery){
     this.search = search;
 };
 
+// Header search function
 searchQuery.search = (searchQuery) => {
     return new Promise((resolve, reject) => {
         console.log("Hit Model");
@@ -24,6 +25,7 @@ searchQuery.search = (searchQuery) => {
     })
 }
 
+//Get recipes for Categories 
 searchQuery.headerCtg = () =>{
     return new Promise((resolve,reject) =>{
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
@@ -39,6 +41,7 @@ searchQuery.headerCtg = () =>{
     })
 }
 
+//Get Popular recipes
 searchQuery.popularRecipe = () => {
     return new Promise((resolve,reject) =>{
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").find().sort({
@@ -55,6 +58,7 @@ searchQuery.popularRecipe = () => {
     })
 }
 
+//Get featured recipes
 searchQuery.featuredRecipe = () => {
     return new Promise((resolve, reject) => {
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({

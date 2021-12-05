@@ -1,5 +1,6 @@
 const ingredient = require('../Models/searchByIngredientModel');
 
+//Query based on ingredient user entered
 exports.query = async (req, res) => {
     const noOfIngredients   = req.body.noOfIngredients;
     console.log("Hit Ingredient Model")
@@ -26,9 +27,7 @@ exports.query = async (req, res) => {
         default:
             break;
     }
-    // console.log(req.body);
-    // console.log("Query" + query);
-    // console.log(typeof(query));
+   
     console.log("Query New")
     console.log(query);
     const ingredients = await ingredient.query(query);

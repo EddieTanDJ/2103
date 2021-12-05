@@ -16,14 +16,16 @@ exports.register = async (req, res) => {
         const userDetails = req.body
         console.log(req.body)
 
-
+        // Generate salt to hash the password
         const salt =  bcrypt.genSaltSync(10);
         // now we set user password to hashed password
         const password = bcrypt.hashSync(userDetails.password, salt);
         userDetails.password = password;
-
+        
+        //Passed request to models to store in DB
         const resultMySQL = await account.registerMySQL(userDetails);
         const resultNoSQL = await account.registerNoSQL(userDetails);
+
         console.log(resultMySQL);
         console.log(resultNoSQL);
         res.send(resultMySQL);
@@ -47,6 +49,7 @@ exports.login = async (req, res) => {
     if (result[0]) {
 
         if (bcrypt.compareSync(userDetails.password, result[0].password)) {
+            // Create a JSON object to store
             let user = {
                 id: result[0].id,
                 username: result[0].username,

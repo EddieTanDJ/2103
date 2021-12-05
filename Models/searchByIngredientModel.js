@@ -20,6 +20,7 @@ ingredient.query = (ingredient) => {
                 reject(err);
             }
             else {
+                console.log(res)
                 resolve(res);
             }
           

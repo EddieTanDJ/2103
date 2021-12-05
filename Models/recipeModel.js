@@ -24,7 +24,7 @@ const recipe = function (recipe){
     this.flag = recipe.flag;
 };
 
-
+//Get recipe details 
 recipe.details = (body) => {
     return new Promise((resolve, reject) => {
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").aggregate([{
@@ -46,6 +46,7 @@ recipe.details = (body) => {
                 reject(err)
             }
             else {
+                console.log(result)
                 resolve(result)
             }
         })
