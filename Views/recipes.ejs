@@ -101,8 +101,8 @@
 
                             <form id="commentForm">
                                 <div class="form-group">
-                                    <textarea id= "reviewDesc" class="form-control" placeholder="Type your review..." name="review"
-                                        rows="7"></textarea>
+                                    <textarea id="reviewDesc" class="form-control" placeholder="Type your review..."
+                                        name="review" rows="7"></textarea>
                                 </div>
                                 <div class="form-group d-flex" style="text-align: left;">
                                     <label for="rate d-inline-block" style="font-size: 1.5em;">Rating:</label>
@@ -120,56 +120,88 @@
                                     </div>
                                 </div>
                                 <% if(user){ %>
-                                        <input type="text" id="userID" name="userID" value="<%-user[0].id%>" hidden />
-                                        <input type="text" id="userName" name="userName" value="<%-user[0].username%>" hidden />
+                                    <input type="text" id="userID" name="userID" value="<%-user[0].id%>" hidden />
+                                    <input type="text" id="userName" name="userName" value="<%-user[0].username%>"
+                                        hidden />
                                     <% } else { %>
                                         <input type="text" id="userID" name="userID" value="0" hidden />
                                         <input type="text" id="userName" name="userName" value="Anonymous" hidden />
                                         <%}%>
-                                <button type="submit" class="metro_btn-custom primary" name="button">Send
-                                    Comment</button>
+                                            <button type="submit" class="metro_btn-custom primary" name="button">Send
+                                                Comment</button>
                             </form>
                         </div>
 
                     </div>
 
                 </div>
-<!-- Modal -->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="updateModalLabel">Edit Comments</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form id="updateCommentForm">
-                <div class="form-group">
-                    <textarea id= "reviewDescription" class="form-control" placeholder="Type your review..." name="review"
-                        rows="7"></textarea>
-                </div>
-                <!-- Pass in input data to modal-->
-                <div class = "form-group">
-                    <input type="text" id="reviewID" name="reviewID" hidden>
-                </div>
-                <div class="form-group d-flex" style="text-align: left;">
-                    <div class="form-group">
-                        <label for="rating d-inline-block" style="font-size: 1.5em;">Rating:</label>
-                        <br>
-                        <input type="number" min="1" max="5" id="rating" name="Rating"><br>
+                <!-- Edit Modal -->
+                <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="updateModalLabel">Edit Comments</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateCommentForm">
+                                    <div class="form-group">
+                                        <textarea id="reviewDescription" class="form-control"
+                                            placeholder="Type your review..." name="review" rows="7"></textarea>
+                                    </div>
+                                    <!-- Pass in input data to modal-->
+                                    <div class="form-group">
+                                        <input type="text" id="reviewID" name="reviewID" hidden>
+                                    </div>
+                                    <div class="form-group d-flex" style="text-align: left;">
+                                        <div class="form-group">
+                                            <label for="rating d-inline-block" style="font-size: 1.5em;">Rating:</label>
+                                            <br>
+                                            <input type="number" min="0" max="5" id="rating" name="Rating"
+                                                style="width: 10em;" placeholder="Rate from 0 to 5"><br>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" name="button">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary" name="button">Save Changes</button>
-        </form>
-        </div>
-      </div>
-    </div>
-  </div>
+                <!-- End of Update Modal-->
+                <!-- Delete Modal -->
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="deleteModalLabel">Delete Comment</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="deleteCommentForm">
+                                    <!-- Pass in input data to modal-->
+                                    <div class="form-group">
+                                        <input type="text" id="deleteReviewID" name="deleteReviewID" hidden>
+                                    </div>
+                                    <p>Do you want to delete this comment?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                <button type="submit" class="btn btn-primary" name="button">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End of Delete Modal-->
             </div>
         </div>
         <!-- Product Content End -->
@@ -203,7 +235,7 @@
                 var userName = document.getElementById('userName').value;
                 window.onload = function () {
 
-                    
+
                     if (urlParams.has('recipeID')) {
                         var query = urlParams.get('recipeID')
                         console.log(query)
@@ -247,11 +279,11 @@
                                             '<h5 id="reviewerName">' + result[0].RecipeDetails[i].reviewAuthorName + '</h5>' +
                                             '<span id="reviewDate">' + result[0].RecipeDetails[i].dateModified + '</span>' +
                                             '<p id="review">' + result[0].RecipeDetails[i].reviewDesc + '</p></div></li>')
-                                            if (userID == result[0].RecipeDetails[i].reviewAuthorID) {
-                                                $("#commentItem").append(
-                                                    '<button type="submit" class="btn btn-primary" style="margin: 10px 50px;" id="editComment" data-toggle="modal" data-target="#updateModal" onclick="editComment(' + result[0].RecipeDetails[i].reviewID + ')")>Edit</button>' + 
-                                                    '<button type="button" class="btn btn-danger" id="deleteButton" onclick="deleteComment(' + result[0].RecipeDetails[i].reviewID + ')">Delete</button>')
-                                            }
+                                        if (userID == result[0].RecipeDetails[i].reviewAuthorID) {
+                                            $("#commentItem").append(
+                                                '<button type="submit" class="btn btn-primary" style="margin: 10px 50px;" id="editComment" data-toggle="modal" data-target="#updateModal" onclick="editComment(' + result[0].RecipeDetails[i].reviewID + ')")>Edit</button>' +
+                                                '<button type="submit" class="btn btn-danger" id="deleteComment" data-toggle="modal" data-target="#deleteModal" onclick="deleteComment(' + result[0].RecipeDetails[i].reviewID + ')">Delete</button>')
+                                        }
                                     }
                                 }
                                 else {
@@ -263,33 +295,30 @@
                 }
 
                 $('#rate').click(function () {
-                    for (i = 1; i <6; i++) {
-                        var stringVal ='star'+ i.toString();
+                    for (i = 1; i < 6; i++) {
+                        var stringVal = 'star' + i.toString();
                         if (document.getElementById(stringVal).checked) {
                             rating = document.getElementById(stringVal).value
                         }
                     }
                 });
 
-
-
-
                 commentForm.onsubmit = async (e) => {
                     console.log("HIT HERE COMMENT AJAX")
                     e.preventDefault();
-                    
+
                     $.ajax({
                         type: "POST",
                         url: "recipes/",
                         data: {
-                            
+
                             recipeID: parseInt(urlParams.get('recipeID')),
                             //To be Changed to user when implemented jessica login
                             reviewAuthorID: userID,
                             reviewAuthorName: userName,
                             //Change Ends
                             rating: rating,
-                            reviewDesc : $("#reviewDesc").val()
+                            reviewDesc: $("#reviewDesc").val()
                         },
                         error: function (xhr, status, err) {
                             alert(status + " " + err);
@@ -300,33 +329,43 @@
                     });
                 }
 
+                // Pass In ReviewID to delete Modal
                 function deleteComment(id) {
-                    console.log(id)
+                    var review = id;
+                    console.log(review);
+                    document.getElementById('deleteReviewID').value = review;
+                }
+
+                // Delete Comment
+                deleteCommentForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    console.log($("#deleteReviewID").val());
+                    console.log("HIT HERE DELETE AJAX");
                     $.ajax({
                         type: "POST",
                         url: "recipes/delete",
                         data: {
-                            reviewID: parseInt(id)
+                            reviewID: parseInt($("#deleteReviewID").val())
                         },
                         error: function (xhr, status, err) {
                             alert(status + " " + err);
                         },
                         success: function (result) {
-                           console.log(result)
-                           window.location.reload();
+                            console.log(result)
+                            window.location.reload();
                         }
                     });
                 }
 
-                // Pass In RecipeID to Modal
+                // Pass In ReviewID to Modal
                 function editComment(ID) {
-                    var recipe = ID;
-                    console.log(recipe);
-                    document.getElementById('reviewID').value = recipe;
+                    var review = ID;
+                    console.log(review);
+                    document.getElementById('reviewID').value = review;
                 };
 
+
                 // Update Comment
-        
                 updateCommentForm.onsubmit = async (e) => {
                     console.log($("#reviewID").val());
                     console.log($("#rating").val());
@@ -342,9 +381,9 @@
                         type: "POST",
                         url: "recipes/update",
                         data: {
-                            reviewID : parseInt($("#reviewID").val()),
+                            reviewID: parseInt($("#reviewID").val()),
                             rating: parseInt($("#rating").val()),
-                            reviewDesc : $("#reviewDescription").val()
+                            reviewDesc: $("#reviewDescription").val()
                         },
                         error: function (xhr, status, err) {
                             alert(status + " " + err);
@@ -357,4 +396,5 @@
             </script>
 
 </body>
+
 </html>
