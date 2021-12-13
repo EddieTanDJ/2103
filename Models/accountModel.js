@@ -2,7 +2,10 @@ const DBConnections=require('./db');
 const sql = DBConnections.mySqlConnection;
 const mongo = DBConnections.mongoConnection;
 
-
+/*
+* Create a account object which contains the following properties:
+* name, email, password
+*/
 const account = function (account){
     this.name = account.name;
     this.email = account.email;
@@ -25,16 +28,16 @@ account.registerMySQL = (account) => {
 }
 
 // Insert new user to NoSQL database
+// => Means function
 account.registerNoSQL = (account) => {
     return new Promise((resolve, reject) => {
-        
+        // Encapsulate into a JSON object
         var noSQLObj = {
             username: account.username,
             fname: account.fname,
             lname: account.lname,
             email: account.email,
             password: account.password};
-
         mongo.collection("users").insertOne(
             noSQLObj,(err,result) =>{
             if (err){
@@ -130,4 +133,5 @@ account.deleteUserInfoNoSQL = (account) => {
     })
 }
 
+// Export the account object. It will be used in other files. 
 module.exports = account;
