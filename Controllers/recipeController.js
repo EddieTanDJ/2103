@@ -85,16 +85,18 @@ exports.details =async(req,res) => {
  */
 exports.comment_update = async (req, res) => {
     try{
+        req.body = JSON.parse(JSON.stringify(req.body));
+        req.body["reviewID"] = parseInt(req.body.reviewID);
+        req.body["rating"] = parseInt(req.body.rating);
+        req.body["reviewDesc"] = req.body.reviewDesc;
         console.log(req.body);
         const result = await recipe.comment_update(req.body);
-
         console.log(result);
         if(!(result[0].notIdentical === "none")) {
             console.log(req.body);
 
             if(result[0].notIdentical === "rating") {
                 req.body["rating"] = result[0].prvRating;
-                
                 const updAvgRatingResult = await recipe.comment_update_avgRating(req.body);
                 console.log(updAvgRatingResult,"empty?");
             }
