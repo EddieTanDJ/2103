@@ -31,6 +31,7 @@ exports.details =async(req,res) => {
  exports.comment_post = async (req, res) => {
     
     const cmtIDResult = await recipe.comment_id();
+    console.log(cmtIDResult);
     console.log("Line 34")
     console.log(req.body)
     
@@ -53,11 +54,8 @@ exports.details =async(req,res) => {
         req.body["reviewCount"] = detsResult[0].reviewCount;
         req.body["servings"] = detsResult[0].servings;
         req.body["instructions"] = detsResult[0].instructions;
-
-        console.log(req.body); // remove later
-
+        console.log(req.body);
         const result = await recipe.comment_insert(req.body);
-        
         console.log(result);
         if (result) {
             req.body["flag"] = 1;
@@ -79,7 +77,7 @@ exports.details =async(req,res) => {
  *  IF have update (i.e. NOT (none of it is notIdentical)),
  *      IF changes is on rating
  *          update the aggregateRating (i.e. total average rating)
- *      send succuessful message
+ *      send successful message
  *  ELSE
  *      send no changes made
  * 
@@ -87,8 +85,10 @@ exports.details =async(req,res) => {
  */
 exports.comment_update = async (req, res) => {
     try{
+        console.log(req.body);
         const result = await recipe.comment_update(req.body);
 
+        console.log(result);
         if(!(result[0].notIdentical === "none")) {
             console.log(req.body);
 
@@ -119,11 +119,13 @@ exports.comment_update = async (req, res) => {
  *  Data to get: reviewID
  */
 exports.comment_delete = async (req, res) => {
+    req.body["reviewID"] = parseInt(req.body.reviewID);
+    // Remove object Null Prototype
+    req.body = JSON.parse(JSON.stringify(req.body));
+    console.log(req.body);
     const cmtResult_one = await recipe.comment_get_one(req.body);
-    console.log(cmtResult_one[0]);;
-
+    console.log(cmtResult_one[0]);
     if (cmtResult_one) {
-
         const result = await recipe.comment_delete(req.body);
         
         try {
@@ -132,7 +134,6 @@ exports.comment_delete = async (req, res) => {
                 body["flag"] = -1;
                 const aggrDelResult = await recipe.comment_aggregate_update(body);
                 console.log(aggrDelResult);
-                
                 res.send(result);
             }
         } catch (err){

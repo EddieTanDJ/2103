@@ -188,7 +188,6 @@ recipe.comment_aggregate_update = (recipe) => {
 /** Updating any changes on recipe's rating or comment */
 recipe.comment_update = (recipe) => {
     return new Promise((resolve, reject) => {
-
         mongo.collection("Recipe_Review").aggregate(
         [
             { $match: { "reviewID": recipe.reviewID }},
@@ -332,7 +331,6 @@ recipe.comment_delete = (recipe) => {
  */
 recipe.comment_get_one = (recipe) => {
     return new Promise((resolve, reject) => {
-        
         mongo.collection("Recipe_Review").find({reviewID:recipe.reviewID}).project(
             {_id: 0, reviewID:1, recipeID: 1, rating: 1}).toArray((err, result)=> {
                 if(err){

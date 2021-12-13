@@ -157,13 +157,14 @@
             <script src="/assets/js/plugins/jquery.zoom.min.js"></script>
 
 
-            <!-- Organista Scripts -->
+            <!-- Organization Scripts -->
             <script src="/assets/js/main.js"></script>
 
             <script>
                 var rating = 0;
                 var urlParams = new URLSearchParams(window.location.search);
                 var userID = document.getElementById('userID').value;
+                console.log(userID);
                 var userName = document.getElementById('userName').value;
                 window.onload = function () {
 
@@ -211,10 +212,11 @@
                                             '<h5 id="reviewerName">' + result[0].RecipeDetails[i].reviewAuthorName + '</h5>' +
                                             '<span id="reviewDate">' + result[0].RecipeDetails[i].dateModified + '</span>' +
                                             '<p id="review">' + result[0].RecipeDetails[i].reviewDesc + '</p></div></li>')
+                                            if (userID == result[0].RecipeDetails[i].reviewAuthorID) {
+                                                $("#commentItem").append(
+                                                    '<button type="button" class="btn btn-danger" id="deleteButton" onclick="deleteComment(' + result[0].RecipeDetails[i].reviewID + ')">Delete</button>')
+                                            }
                                     }
-
-
-
                                 }
                                 else {
                                     $("#commentItem").append('<h5 id="reviewerName">No Review</h5>')
@@ -260,7 +262,24 @@
                         }
                     });
                 }
-            
+
+                function deleteComment(id) {
+                    console.log(id)
+                    $.ajax({
+                        type: "POST",
+                        url: "recipes/delete",
+                        data: {
+                            reviewID: parseInt(id)
+                        },
+                        error: function (xhr, status, err) {
+                            alert(status + " " + err);
+                        },
+                        success: function (result) {
+                           console.log(result)
+                           window.location.reload();
+                        }
+                    });
+                }
             </script>
 
 </body>
