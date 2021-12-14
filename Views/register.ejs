@@ -27,7 +27,10 @@
                             <div class="card-body">
                                 <div id="alertUsername" class="alert alert-danger fs-sm-1" hidden>
                                 Username or email already exist!
-                            </div>
+                                </div>
+                                <div id="alertPassword"  class="alert alert-danger fs-sm-1" hidden>
+                                Password does not match!
+                                </div>
                                 <form id="registerForm" class="row g-3" method="post">
                                     <div class="col-6">
                                         <label class="form-label">Username</label>
@@ -47,9 +50,12 @@
                                     </div>
                                     <div class="col-6 mt-2">
                                         <label class="form-label">Password</label>
-                                        <input id="confirmPW" type="password" class="form-control" value="">
+                                        <input id="PW" type="password" class="form-control" value="" required>
                                     </div>
-
+                                    <div class="col-6 mt-2">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input id="confirmPW" type="password" class="form-control" value="" required>
+                                    </div>
                             </div>                            
                         </div>
                         
@@ -60,7 +66,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- Register Account Detail End -->
 
@@ -88,7 +93,7 @@
             <script>
                 registerForm.onsubmit = async (e) => {
                     e.preventDefault();
-                    console.log("Hit");
+                    console.log("Hit Here");
                     $.ajax({
                         type: "POST",
                         url: "/accounts/register",
@@ -97,14 +102,23 @@
                             email: $("#email").val(),
                             fname: $("#fname").val(),
                             lname: $("#lname").val(),
-                            password: $("#confirmPW").val()
+                            password: $("#PW").val(),
+                            confirmPassword: $("#confirmPW").val()
                         },
                         error: function (xhr, status, err) {
-                            $("#alertUsername").attr("hidden", false);
+                            console.log(err);
+                            if (err == "Unauthorized") {
+                                $("#alertPassword").attr("hidden", true);
+                                $("#alertUsername").attr("hidden", false);
+                            }
+                            else if (err == "Internal Server Error") {
+                                $("#alertUsername").attr("hidden", true);
+                                $("#alertPassword").attr("hidden", false);
+                            }
                             // alert(status + " " + err);
                         },
                         success: function (result) {
-                            // alert("Succesful");
+                            // alert("Successful");
                             window.location.replace("/accounts")
                         }
                     });

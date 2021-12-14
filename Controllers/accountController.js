@@ -23,9 +23,13 @@ router.use('/:user', itemRouter);
 // Register User
 exports.register = async (req, res) => {
     try {
+        console.log("HIT CONTROLLER");
         const userDetails = req.body
         console.log(req.body)
-
+        // Check if password and confirm password match.
+        if (req.body.password !== req.body.confirmPassword) {
+            throw new Error("Password and Confirm Password do not match");
+        }
         // Generate salt to hash the password
         const salt =  bcrypt.genSaltSync(10);
         // now we set user password to hashed password
@@ -38,14 +42,16 @@ exports.register = async (req, res) => {
 
         console.log(resultMySQL);
         res.send(resultMySQL);
-
-
     } catch (err) {
-        console.error(err);
-        res.status(401).send(err);
-
+        if(err.message == "Password and Confirm Password do not match"){
+            console.log(err.message);
+            res.status(500).send(err.message);
+        }
+        else {
+            console.log(err.message);
+            res.status(401).send(err.message);
+        }
     }
-
 }
 
 //Login User
