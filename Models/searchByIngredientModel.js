@@ -10,7 +10,10 @@ const ingredient = function(ingredient){
 
 // Query the recipe based on ingredient
 ingredient.query = (ingredient) => {
-    console.log(ingredient);
+    console.log("Ingredient Model");
+    console.log(ingredient[0].ingredient1);
+    console.log(ingredient[1].ingredient2);
+    console.log(ingredient[2].ingredient3);
     return new Promise((resolve, reject) => {
         sql.query('SELECT r.recipeID, r.aggregatedRating, r.recipeName, r.image, r.description, r.instructions , r.authorID, a.authorName, i.ingredientName, \
         i.ingredientQty from recipe r INNER JOIN ingredient i ON r.recipeID = i.recipeID  INNER JOIN author a ON r.authorID = a.authorID\
