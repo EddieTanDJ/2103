@@ -51,13 +51,29 @@ account.registerNoSQL = (account) => {
     })
 }
 
-// Select all the users base on the input email
+// Select all the users base on the input email from mysql database
 account.login = (account) => {
     return new Promise((resolve,reject) => {
         sql.query('SELECT * from users where email = ? ', [account.email], (err,result) => {
             if(err){
                 reject(err);
             }else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+// Select all the users base on the input email from NoSQL database
+account.loginNoSQL = (account) => {
+    return new Promise((resolve,reject) => {
+        mongo.collection("users").findOne({email: account.email},(err,result) => {
+            if(err){
+                console.log(err);
+                reject(err);
+            }else{
+                console.log("HIT");
+                console.log(result);
                 resolve(result);
             }
         })
