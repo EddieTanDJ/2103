@@ -1,13 +1,29 @@
 const homepage = require("../Models/homepageModel");
 
 
-//Get User Details
+//Get User Details and recipes name
 exports.search = async (req, res) => {
     var user = null;
     if(req.isAuthenticated) user = req.user;
     const result = await homepage.search(req.body);
-    console.log("After NoSQL")
+    console.log("After NoSQL Recipe Search")
     result["user"] = user;
+    console.log(user);
+    console.log(result);
+    res.send(result)
+}
+
+
+// Get the recipe details based on category
+exports.getRecipeByCtg = async (req, res) => {
+    console.log("Hit Controller");
+    var user = null;
+    if(req.isAuthenticated) user = req.user;
+    const result = await homepage.getRecipeByCtg(req.body);
+    console.log("After NoSQL Recipe Category Search")
+    result["user"] = user;
+    console.log(user);
+    console.log(result);
     res.send(result)
 }
 

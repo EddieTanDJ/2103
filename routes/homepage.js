@@ -12,6 +12,7 @@ router.get("/",homepage.start);
 //Route to the search function on the header
 router.post("/search",homepage.search);
 
-
+// Route to search recipes based on categories
+router.post("/getRecipeByCtg",homepage.getRecipeByCtg);
 
 module.exports = router;

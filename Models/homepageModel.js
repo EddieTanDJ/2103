@@ -25,6 +25,27 @@ searchQuery.search = (searchQuery) => {
     })
 }
 
+
+// Get all recipe based on catagories using mongoose
+searchQuery.getRecipeByCtg = (searchQuery) => {
+    return new Promise((resolve, reject) => {
+        console.log("Hit Model");
+        console.log(searchQuery.search);
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
+            categories: searchQuery.search
+        }).toArray((err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        }
+        );
+    })
+}
+
+
 // Get recipes for the Categories improved
 searchQuery.headerCtgImproved = () =>{
     return new Promise((resolve, reject) => {
