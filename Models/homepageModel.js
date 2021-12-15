@@ -25,11 +25,39 @@ searchQuery.search = (searchQuery) => {
     })
 }
 
+// Get recipes for the Categories improved
+searchQuery.headerCtgImproved = () =>{
+    return new Promise((resolve, reject) => {
+        // Mongoose Query extract top record from each group
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").aggregate([
+            {
+                $match: {image: {$ne: null }}
+            },
+                {$group:{
+                    _id: "$categories", 
+                    categories : {$first: "$categories"},
+                    image : {$first: "$image"},
+                    count: {$sum : 1}
+                }
+            },
+            {$sort: {count: -1}},
+            {$limit: 10}
+        ]).toArray((err,result)=>{
+            if(err){
+                reject(err);
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
 //Get recipes for Categories 
 searchQuery.headerCtg = () =>{
     return new Promise((resolve,reject) =>{
         mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
-            recipeID:{ $in: [1415,2710,412]}
+            recipeID:{ $in: [1415,8709,412]}
         }).toArray((err,result)=>{
             if(err){
                 reject(err);

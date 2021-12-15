@@ -31,36 +31,26 @@
     <!-- Categories Start -->
     <div class="section section-padding">
       <div class="container">
+        <% for(var j=0; j<categoryImage.length; j+=2) {%>
         <div class="row">
           <div class="col-lg-6">
             <a href="recipe-grid.html" class="metro_recipe-category style-2">
-              <img style="height: 400px;" src=<%=img1%>> <alt="category">
+              <img style="height: 400px;" src=<%=categoryImage[j].image%>> <alt="category">
                 <h4>
-                  <%= imgName1%>
+                  <%=categoryImage[j].categories%>
                 </h4>
             </a>
           </div>
           <div class="col-lg-6">
             <a href="recipe-grid.html" class="metro_recipe-category style-2">
-              <img style="height:400px;" src=<%=img2%>> <alt="category">
+              <img style="height: 400px;" src=<%=categoryImage[j+1].image%>> <alt="category">
                 <h4>
-                  <%= imgName2%>
+                  <%=categoryImage[j+1].categories%>
                 </h4>
             </a>
-          </div>
-          <div class="col">
-          </div>
-          <div class="col-lg-8">
-            <a href="recipe-grid.html" class="metro_recipe-category style-2">
-              <img style="height:400px;" src=<%=img3%>> <alt="category">
-                <h4>
-                  <%= imgName3%>
-                </h4>
-            </a>
-          </div>
-          <div class="col">
           </div>
         </div>
+            <% } %>
       </div>
     </div>
     <!-- Categories End -->
