@@ -7,7 +7,7 @@ const router = express.Router();
 // Hash and Verify Password
 const bcrypt = require("bcrypt");
 // To insert, update, delete data from SQL and NoSQL DB for user account
-const account = require("../models/accountModel");
+const account = require("../Models/accountModel");
 // Share Security Information between clients and server
 const jwt = require('jsonwebtoken');
 // Secret Key for JWT
