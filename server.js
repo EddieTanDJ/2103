@@ -44,6 +44,7 @@ app.use('/recipes', recipes);
 //Setting up homepage routes
 var homepage = require('./routes/homepage');
 app.use("/index",homepage);
+app.use("/",homepage);
 
 //Setting up logout route
 app.use('/logout',(req,res)=>{
