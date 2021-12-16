@@ -40,7 +40,7 @@
         <% for(var j=0; j<categoryImage.length; j+=2) {%>
         <div class="row">
           <div class="col-lg-6">
-            <a href="recipe-grid.html" class="metro_recipe-category style-2">
+            <a href="/recipes/categories-result?search=<%=categoryImage[j].categories%>" class="metro_recipe-category style-2">
               <img style="height: 400px;" src=<%=categoryImage[j].image%>> <alt="category">
                 <h4>
                   <%=categoryImage[j].categories%>
@@ -48,7 +48,7 @@
             </a>
           </div>
           <div class="col-lg-6">
-            <a href="recipe-grid.html" class="metro_recipe-category style-2">
+            <a href="/recipes/categories-result?search=<%=categoryImage[j+1].categories%>" class="metro_recipe-category style-2">
               <img style="height: 400px;" src=<%=categoryImage[j+1].image%>> <alt="category">
                 <h4>
                   <%=categoryImage[j+1].categories%>
@@ -83,7 +83,7 @@
                 <% for(var i=0; i<popularRecipe.length; i++) {%>
                   <article class="metro_post metro_recipe metro_recipe-2">
                     <div class="metro_post-thumb">
-                      <form action="/recipesrs?recipeID=<%=popularRecipe[i].recipeID %>" method="post">
+                      <form action="/recipes?recipeID=<%=popularRecipe[i].recipeID %>" method="post">
                         <a href="/recipes?recipeID=<%=popularRecipe[i].recipeID %>">
                           <img style="height:193.33px;" src=<%=popularRecipe[i].image%> alt="recipe">
                         </a>
@@ -91,12 +91,12 @@
                     </div>
                     <div class="metro_post-body">
                       <div class="metro_post-desc">
-                        <span class="metro_post-meta"> <a href="#"> <i class="far fa-clock"></i>
+                        <span class="metro_post-meta"><i class="far fa-clock"></i>
                             <%= popularRecipe[i].totalTime%>
-                          </a> <a href="recipe-details.html"> <i class="far fa-knife-kitchen"></i>
+                          <i class="far fa-knife-kitchen"></i>
                             <%= popularRecipe[i].authorName%>
                           </a> </span>
-                        <h5> <a href="recipe-details.html">
+                        <h5> <a href="/recipes?recipeID=<%=popularRecipe[i].recipeID %>">
                             <%= popularRecipe[i].recipeName%>
                           </a> </h5>
                       </div>
@@ -131,9 +131,9 @@
                     </div>
                     <div class="metro_post-body">
                       <div class="metro_post-desc">
-                        <span class="metro_post-meta"> <a href="#">
+                        <span class="metro_post-meta">
                             <%= featuredRecipe[i].categories %>
-                          </a> </span>
+                        </span>
                         <div class="metro_rating">
                           <i class="fa fa-star active"></i>
                           <i class="fa fa-star active"></i>
@@ -141,11 +141,11 @@
                           <i class="fa fa-star active"></i>
                           <i class="fa fa-star active"></i>
                         </div>
-                        <h5> <a href="recipe-details.html"></a>
+                        <h5> 
                           <%= featuredRecipe[i].recipeName %>
                         </h5>
                       </div>
-                      <a class="btn-link" href="recipe-details.html"> Read More <i class="fas fa-arrow-right"></i> </a>
+                      <a class="btn-link" href="/recipes?recipeID=<%=featuredRecipe[i].recipeID %>"> Read More <i class="fas fa-arrow-right"></i> </a>
                     </div>
                   </article>
                   <% } %>
@@ -188,7 +188,6 @@
         $(document).keyup(function (event) {
           if ($("#searchField").is(":focus") && event.key == "Enter") {
             window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
-
           }
         });
 

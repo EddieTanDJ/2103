@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="metro_subheader-inner">
                     <h1>
-                        Ingredient Searched Results
+                        Category Results
                     </h1>
                     <nav aria-label="breadcrumb">
                     </nav>
@@ -60,14 +60,16 @@
 
                 function createCard(cardData) {
                     console.log("Creating Card")
+                    if (!cardData.image) {
+                        cardData.image = '/assets/img/noImageAvailable.png'
+                    }
                     var cardTemplate = [
                         '<div class="card recipe-list">',
-
-                        '<a href="/recipes?recipeID=' + cardData.recipeID+'">',
+                        '<a id ="recipes" href="/recipes?recipeID=' + cardData.recipeID+'">',
                         '<div class="row">',
                         '<div class="col recipe-col-img">',
                         '<img src="',
-                        cardData.image.split(', ')[0] || '/assets/img/noImageAvailable.png',
+                        cardData.image.split(", ")[0] || '/assets/img/noImageAvailable.png',
                         '" alt="recipe">',
                         '</div>',
                         '<div class="col recipe-col-detail">',
@@ -81,7 +83,7 @@
                         cardData.aggregatedRating || 'No Rating provided',
                         '/5</p>',
                         '<p id="recipeCategory">',
-                            cardData.categories || 'No category provided',
+                        cardData.categories || 'No category provided',
                         '</p>',
                         '<div id="recipeDescription">',
                         '<span>',
@@ -94,29 +96,23 @@
                 }
 
                 window.onload = function () {
+                    // Get URL parameters
                     var urlParams = new URLSearchParams(window.location.search);
-                    if (urlParams.has('int1')) {
-                        var noOfInt = urlParams.get('noOfInt')
-                        var int1 = urlParams.get('int1')
-                        var int2 = urlParams.get('int2')
-                        var int3 = urlParams.get('int3')
-                        console.log(int2)
-                        console.log(int3)
+                    console.log(urlParams.has('search')); // true
+                    if (urlParams.has('search')) {
+                        var query = urlParams.get('search')
+                        console.log(query)
                         $.ajax({
                             type: "POST",
-                            url: "/searchByIngredients/search",
+                            url: "/index/getRecipeByCtg",
                             data: {
-                                noOfIngredients: noOfInt,
-                                ingredient1: int1,
-                                ingredient2: int2,
-                                ingredient3: int3
+                                search: query
                             },
                             success: function (result) {
 
                                 //populate page using jqury
                                 var cards = $();
                                 // Store all the card nodes
-                                console.log(result)
                                 result.forEach(function (item, i) {
                                     cards = cards.add(createCard(item));
                                     console.log("HIT")
@@ -130,6 +126,7 @@
                         });
                     }
                 };
+
                 $(document).keyup(function (event) {
                     if ($("#searchField").is(":focus") && event.key == "Enter") {
                         window.location.replace("/recipes/search-result?search=" + $("#searchField").val())

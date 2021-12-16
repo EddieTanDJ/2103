@@ -43,6 +43,7 @@ exports.start = async (req, res) => {
     // imgName3 = headerCtg[2].categories;
 
     // Get the first Image
+    console.log(headerCtg)
     for (let j = 0; j < headerCtg.length; j++) {
         headerCtg[j].image = headerCtg[j].image.split(', ')[0];
     }

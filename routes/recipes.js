@@ -13,6 +13,9 @@ router.post("/details",recipe.details);
 //Route to display recipes results based on search
 router.get("/search-result",recipe.search);
 
+//Route to display recipes results based on categories
+router.get("/categories-result",recipe.categories_result);
+
 //Routes to post,update and delete comments
 router.post("/",recipe.comment_post);
 router.post("/update",recipe.comment_update);

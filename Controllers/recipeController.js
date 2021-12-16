@@ -1,17 +1,22 @@
 const recipe = require("../Models/recipeModel");
 
-// //Get recipe search result
+// Get recipe search result
 exports.search = async (req, res) => {
     
     res.render('search-result', {user:req.user});
 }
+
+// Get recipe categories result
+exports.categories_result = async (req, res) => {
+    res.render('categories-result', {user:req.user});
+}
+
 
 //Get recipe details based on recipe ID
 exports.details =async(req,res) => {
     console.log(req.body);
     const result = await recipe.details(req.body);
     res.send(result)
-    
 }
 
 
