@@ -152,7 +152,11 @@
         }
 
     }
-
+    $(document).keyup(function (event) {
+        if ($("#searchField").is(":focus") && event.key == "Enter") {
+          window.location.replace("/recipes/search-result?search=" + $("#searchField").val())
+        }
+      });
 </script>
 
 </html>
