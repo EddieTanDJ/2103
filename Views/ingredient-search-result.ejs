@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="metro_subheader-inner">
                     <h1>
-                        Searched Results
+                        Ingredient Searched Results
                     </h1>
                     <nav aria-label="breadcrumb">
                     </nav>
@@ -79,9 +79,12 @@
                         '<p id="recipeRating">',
                         cardData.aggregatedRating || 'No Rating provided',
                         '/5</p>',
+                        '<p id="recipeCategory">',
+                            cardData.categories || 'No category provided',
+                        '</p>',
                         '<div id="recipeDescription">',
                         '<span>',
-                        cardData.description || 'No Rating provided',
+                        cardData.description || 'No Description provided',
                         '</span></div></div></div></a></div>'
                     ];
 

@@ -60,6 +60,7 @@
 
                 function createCard(cardData) {
                     console.log("Creating Card")
+                    console.log(cardData)
                     if (!cardData.image) {
                         cardData.image = '/assets/img/noImageAvailable.png'
                     }
@@ -82,9 +83,12 @@
                         '<p id="recipeRating">',
                         cardData.aggregatedRating || 'No Rating provided',
                         '/5</p>',
+                        '<p id="recipeCategory">',
+                        cardData.categories || 'No category provided',
+                        '</p>',
                         '<div id="recipeDescription">',
                         '<span>',
-                        cardData.description || 'No Rating provided',
+                        cardData.description || 'No Description provided',
                         '</span></div></div></div></a></div>'
                     ];
 

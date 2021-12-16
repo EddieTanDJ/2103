@@ -5414,11 +5414,16 @@ td.remove{
   font-weight: bold;
 }
 #recipeAuthor{
-  font-size: 10px;
+  font-size: 15px;
 }
 #recipeRating{
   font-size: 15px;
 }
+
+#recipeCategory{
+  font-size: 15px;
+}
+
 #recipeDescription{
   width: 750px;
   overflow: hidden;
