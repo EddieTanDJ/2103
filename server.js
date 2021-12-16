@@ -51,6 +51,7 @@ app.use('/logout',(req,res)=>{
   res.render("index",{error:null})
 })
 
+// Set up searchByIngredients route
 var searchByIngredients = require('./routes/searchByIngredients');
 app.use("/searchByIngredients",searchByIngredients);
 
