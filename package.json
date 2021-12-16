@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "ICT 2103 Assignment",
   "main": "server.js",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "nodemon server.js"
   },
@@ -21,9 +24,22 @@
     "mysql": "^2.18.1",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "nodemon": "^2.0.15"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
-  }
+  },
+  "optionalDependencies": {
+    "fsevents": "2.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EddieTanDJ/2103.git"
+  },
+  "bugs": {
+    "url": "https://github.com/EddieTanDJ/2103/issues"
+  },
+  "homepage": "https://github.com/EddieTanDJ/2103#readme"
+
 }

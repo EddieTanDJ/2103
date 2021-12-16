@@ -12,8 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Setting up the Environment
-const port = process.env.PORT;
-const host = process.env.HOST;
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || 'localhost';
 app.use(cors());
 
 //Set view engine load an ejs file
