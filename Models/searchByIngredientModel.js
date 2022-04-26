@@ -1,5 +1,6 @@
 const DBConnections=require('./db');
 const sql = DBConnections.mySqlConnection;
+const mongo = DBConnections.mongoConnection;
 
 // create ingredient object
 const ingredient = function(ingredient){
@@ -11,6 +12,7 @@ const ingredient = function(ingredient){
 // Query the recipe based on ingredient
 ingredient.query = (ingredient) => {
     console.log("Ingredient Model");
+    console.log("Query SQL");
     console.log(ingredient[0].ingredient1);
     console.log(ingredient[1].ingredient2);
     console.log(ingredient[2].ingredient3);
@@ -23,7 +25,7 @@ ingredient.query = (ingredient) => {
                 reject(err);
             }
             else {
-                console.log(res)
+                // console.log(res)
                 resolve(res);
             }
           
@@ -31,4 +33,32 @@ ingredient.query = (ingredient) => {
     });
 }
 
+
+ingredient.queryNOSQL = (ingredient) => {
+    console.log("Ingredient Model");
+    console.log("Query NOSQL");
+    console.log(ingredient[0].ingredient1);
+    console.log(ingredient[1].ingredient2);
+    console.log(ingredient[2].ingredient3);
+    return new Promise((resolve, reject) => {
+        mongo.collection("Recipe_Nutrition_Ingredient_Duration").find({
+            $and: [
+            {ingredientName : {$regex: '.*' + ingredient[0].ingredient1 + '.*',$options: 'i'}},
+            {ingredientName: {$regex: '.*' + ingredient[1].ingredient2 + '.*',$options: 'i'}},
+            {ingredientName: {$regex: '.*' + ingredient[2].ingredient3 + '.*',$options: 'i'}}
+            ]
+        })
+        .toArray((err, res) => {
+            if(err){
+                reject(err);
+            }
+            else {
+                // console.log(res)
+                resolve(res);
+            } 
+        })
+    })
+}
+
+    
 module.exports = ingredient;

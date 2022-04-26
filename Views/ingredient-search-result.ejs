@@ -60,9 +60,11 @@
 
                 function createCard(cardData) {
                     console.log("Creating Card")
+                    if (!cardData.image) {
+                        cardData.image = '/assets/img/noImageAvailable.png'
+                    }
                     var cardTemplate = [
                         '<div class="card recipe-list">',
-
                         '<a href="/recipes?recipeID=' + cardData.recipeID+'">',
                         '<div class="row">',
                         '<div class="col recipe-col-img">',

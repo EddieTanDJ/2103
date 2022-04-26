@@ -69,7 +69,7 @@ account.loginNoSQL = (account) => {
     return new Promise((resolve,reject) => {
         mongo.collection("users").findOne({email: account.email},(err,result) => {
             if(err){
-                console.log(err);
+                console.log("ERROR: " + err);
                 reject(err);
             }else{
                 console.log("HIT");

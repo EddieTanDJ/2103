@@ -1,6 +1,6 @@
 module.exports = {
     // MYSQL CONFIG
-    HOST: "ict2102assignment.ccgtxure9gnm.us-east-2.rds.amazonaws.com",
+    HOST: "localhost",
     USER: process.env.dbUser,
     PASSWORD: process.env.dbPassword,
     // MONGO CONFIG

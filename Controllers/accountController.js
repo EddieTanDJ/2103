@@ -37,11 +37,13 @@ exports.register = async (req, res) => {
         userDetails.password = password;
         
         //Passed request to models to store in DB
-        const resultMySQL = await account.registerMySQL(userDetails);
+        // const resultMySQL = await account.registerMySQL(userDetails);
         const resultNoSQL = await account.registerNoSQL(userDetails);
 
-        console.log(resultMySQL);
-        res.send(resultMySQL);
+        // console.log(resultMySQL);
+        // res.send(resultMySQL);
+        console.log(resultNoSQL);
+        res.send(resultNoSQL);
     } catch (err) {
         if(err.message == "Password and Confirm Password do not match"){
             console.log(err.message);
@@ -61,20 +63,22 @@ exports.login = async (req, res) => {
     console.log("HIT");
     console.log(userDetails);
     // Check if user exists in MySQL DB
-    const result = await account.login(userDetails);
+    const result = await account.loginNoSQL(userDetails);
     console.log(result);
+    // If using mysql to login use result[0] to login
+    // If using nosql to login use result to login
     // If user exist check if password is correct
     // If use NoSQL for account login, we use result instead of result[0] as it only returns one row of data
-    if (result[0]) {
+    if (result) {
         // Check if the password is correct
-        if (bcrypt.compareSync(userDetails.password, result[0].password)) {
+        if (bcrypt.compareSync(userDetails.password, result.password)) {
             // Create a JSON object to store the user details that is returned from MySQL DB
             let user = {
-                id: result[0].id,
-                username: result[0].username,
-                fname: result[0].fname,
-                lname: result[0].lname,
-                email: result[0].email
+                id: result.id,
+                username: result.username,
+                fname: result.fname,
+                lname: result.lname,
+                email: result.email
             }
             req.login(user, function (err) {
                 console.log(user)
@@ -106,11 +110,12 @@ exports.setUserInfo = async (req, res) => {
             const password = await bcrypt.hashSync(userInfo.pwd, salt);
             userInfo.pwd = password;
             // Update user info in MySQL and NoSQL DB
-            const resultMySQL = await account.updateUserInfoMySQL(userInfo);
+            // const resultMySQL = await account.updateUserInfoMySQL(userInfo);
             const resultNoSQL = await account.updateUserInfoNoSQL(userInfo);
-            console.log(resultMySQL);
+            // console.log(resultMySQL);
             console.log(resultNoSQL);
-            res.send(resultMySQL);
+            // res.send(resultMySQL);
+            res.send(resultNoSQL);
 
         } catch (err) {
             console.error(err);
@@ -122,12 +127,13 @@ exports.setUserInfo = async (req, res) => {
         try {
             console.log(userInfo);
             // Delete User Account
-            const resultMySQL = await account.deleteUserInfoMySQL(userInfo);
+            // const resultMySQL = await account.deleteUserInfoMySQL(userInfo);
             const resultNoSQL = await account.deleteUserInfoNoSQL(userInfo);
             req.logOut();
-            console.log(resultMySQL);
+           // console.log(resultMySQL);
             console.log(resultNoSQL);
-            res.send(resultMySQL);
+            // res.send(resultMySQL);
+            res.send(resultNoSQL);
         } catch (err) {
             console.error(err);
             res.status(500).send(err);

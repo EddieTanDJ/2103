@@ -21,13 +21,13 @@ exports.query = async (req, res) => {
         case 3:
             query.push({"ingredient1" : (req.body.ingredient1).toLowerCase()});
             query.push({"ingredient2" : (req.body.ingredient2).toLowerCase()});
-            query.push({"ingredient3" : (req.body.ingredient1).toLowerCase()});
+            query.push({"ingredient3" : (req.body.ingredient3).toLowerCase()});
             break;
         default:
             break;
     }
     console.log("Query New")
     console.log(query);
-    const ingredients = await ingredient.query(query);
+    const ingredients = await ingredient.queryNOSQL(query);
     res.send(ingredients); // Access the data from the request                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 }
