@@ -8,7 +8,7 @@
 
 <body>
 
-    <%- include('header.ejs'); %>
+    <%- include('header.ejs', {user:user}) %>
         <!-- Subheader Start -->
         <div class="metro_subheader dark-overlay dark-overlay-2"
             style="background-image: url(assets/img/banners/banner-1.jpg)">
@@ -120,8 +120,8 @@
                                     </div>
                                 </div>
                                 <% if(user){ %>
-                                    <input type="text" id="userID" name="userID" value="<%-user[0].id%>" hidden />
-                                    <input type="text" id="userName" name="userName" value="<%-user[0].username%>"
+                                    <input type="text" id="userID" name="userID" value="<%-user.id%>" hidden />
+                                    <input type="text" id="userName" name="userName" value="<%-user.username%>"
                                         hidden />
                                     <% } else { %>
                                         <input type="text" id="userID" name="userID" value="0" hidden />
@@ -233,6 +233,7 @@
                 var userID = document.getElementById('userID').value;
                 console.log(userID);
                 var userName = document.getElementById('userName').value;
+                console.log(userName);
                 window.onload = function () {
 
 
@@ -279,7 +280,7 @@
                                             '<h5 id="reviewerName">' + result[0].RecipeDetails[i].reviewAuthorName + '</h5>' +
                                             '<span id="reviewDate">' + result[0].RecipeDetails[i].dateModified + '</span>' +
                                             '<p id="review">' + result[0].RecipeDetails[i].reviewDesc + '</p></div></li>')
-                                        if (userID == result[0].RecipeDetails[i].reviewAuthorID) {
+                                        if (userName == result[0].RecipeDetails[i].reviewAuthorName) {
                                             $("#commentItem").append(
                                                 '<button type="submit" class="btn btn-primary" style="margin: 10px 50px;" id="editComment" data-toggle="modal" data-target="#updateModal" onclick="editComment(' + result[0].RecipeDetails[i].reviewID + ')")>Edit</button>' +
                                                 '<button type="submit" class="btn btn-danger" id="deleteComment" data-toggle="modal" data-target="#deleteModal" onclick="deleteComment(' + result[0].RecipeDetails[i].reviewID + ')">Delete</button>')

@@ -8,9 +8,7 @@
     "node": "16.x"
   },
   "scripts": {
-    "build": "nodemon server.js",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "start": "nodemon server.js"
   },
   "author": "Ivan",
   "license": "ISC",

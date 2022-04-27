@@ -152,7 +152,7 @@ passport.serializeUser(function (user, done) {
 // Deserialize User to remove from session when logout
 passport.deserializeUser(async function (userDetail, done) {
     // Finish checking for the user info from MySQL DB before deserialize user
-    let user = await account.login(userDetail);
+    let user = await account.loginNoSQL(userDetail);
 
     done(null, user);
 });
