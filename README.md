@@ -9,16 +9,7 @@ Node.JS installed
 2. Open the project in your IDE
 3. Open terminal in your IDE
 4. Enter "npm install"
+5. Run "npm start"
 
-# Environment
-Add an .env file with the following credentials
-
-HOST = localhost
-
-PORT = 3000
-
-dbUser = "admin"
-
-dbPassword = "Password123"
-
-secretSession = "Wl3kQyRhQnpaa24I"
+# Deploy
+This app is being deployed to Heroku. Click [here](https://ezrecipe123.herokuapp.com/) to view the app.
